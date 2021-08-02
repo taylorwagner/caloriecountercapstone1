@@ -1,6 +1,6 @@
 """SQLAlchemy models for Calorie Counter."""
 
-from datetime import datetime, date
+from datetime import datetime
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 
@@ -56,7 +56,7 @@ class Profile(db.Model):
     city = db.Column(db.String(30))
     state = db.Column(db.String(30))
     gender = db.Column(db.Boolean)
-    dob = db.Column(db.Datetime.Date)
+    dob = db.Column(db.DateTime, default=datetime.date())
     reason = db.Column(db.Text)
     goal_cal = db.Column(db.Integer, nullable=False)
 
@@ -84,6 +84,16 @@ class Follow(db.Model):
 
     user_following_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="cascade"), primary_key=True)
     user_followed_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="cascade"), primary_key=True)
+
+class Comment(db.Model):
+    """Users can leave comments for themselves, users he/she follows, and groups he/she is in."""
+
+    __tablename__ = "comments"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, db.ForeginKey('user.id', ondelete="cascase"))
+    text = db.Column(db.Text, nullable=False)
+    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
 
 def connect_db(app):
     """Connect this database to provided Flask app."""
