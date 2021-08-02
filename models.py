@@ -1,7 +1,6 @@
 """SQLAlchemy models for Calorie Counter."""
 
 from datetime import datetime
-from re import U
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 
@@ -28,20 +27,20 @@ class User(db.Model):
         """Sign up a user. Hashes password and adds user to the system."""
         hashed_pw = bcrypt.generate_password_hash(password).decode('UTF-8')
 
-        u = User(username=username, password=hashed_pw, email=email)
+        user = User(username=username, password=hashed_pw, email=email)
 
-        db.session.add(u)
-        return U
+        db.session.add(user)
+        return user
     
     @classmethod
     def authenticate(cls, username, password):
         """Find user with matching 'username' and 'password' combination."""
-        u = cls.query.filter_by(username=username).first()
+        user = cls.query.filter_by(username=username).first()
 
-        if u:
+        if user:
             is_auth = bcrypt.check_password_hash(u.password, password)
             if is_auth:
-                return U
+                return user
 
         return False
 
