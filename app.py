@@ -32,7 +32,7 @@ def do_login(user):
     """Login user."""
     session[CURR_USER_KEY] = user.id
 
-def do_logout(user):
+def do_logout():
     """Logout user."""
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
@@ -40,3 +40,6 @@ def do_logout(user):
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
     """Handle user signup. Create new user and add to DB. Redirect to homepage. If the form is not valid, present form. If the username or email is not unique, flash message and reload the form."""
+    if CURR_USER_KEY in session:
+        del session[CURR_USER_KEY]
+    form = UserAddForm()
