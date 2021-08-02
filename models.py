@@ -39,6 +39,8 @@ class User(db.Model):
 
     followers = db.relationship("User", secondary="follows", primaryjoin=(Follow.user_followed_id == id), secondaryjoin=(Follow.user_following_id == id))
 
+    groups = db.relationship("Group", secondary="users_groups", backref="users")
+
     def __repr__(self):
         """Human readable representation of user table data."""
         return f"<User #{self.id}: {self.username}, {self.email}>"
