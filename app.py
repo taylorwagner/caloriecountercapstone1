@@ -2,7 +2,7 @@
 import os
 from flask import Flask
 import flask_sqlalchemy
-from models import db, connect_db, User
+from models import db, connect_db, User, Profile, Group, UserGroup, Follow, Comment
 
 app = Flask(__name__)
 
