@@ -1,6 +1,6 @@
 """SQLAlchemy models for Calorie Counter."""
 
-from datetime import datetime
+from datetime import datetime, date
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 
@@ -43,6 +43,22 @@ class User(db.Model):
                 return user
 
         return False
+
+
+class Profile(db.Model):
+    """A user's profile information."""
+
+    __tablename__ = "profiles"
+
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="cascade"), primary_key=True)
+    first_name = db.Column(db.String(30))
+    last_name = db.Column(db.String(30))
+    city = db.Column(db.String(30))
+    state = db.Column(db.String(30))
+    gender = db.Column(db.Boolean)
+    dob = db.Column(db.Datetime.Date)
+    reason = db.Column(db.Text)
+    goal_cal = db.Column(db.Integer, nullable=False)
 
 def connect_db(app):
     """Connect this database to provided Flask app."""

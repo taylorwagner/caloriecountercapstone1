@@ -9,7 +9,8 @@ Table profiles {
   user_id int [pk, fk]
   first_name string
   last_name string
-  location place
+  city string
+  state string
   gender choice
   dob date
   reason text
