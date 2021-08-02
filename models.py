@@ -66,6 +66,8 @@ class Group(db.Model):
     __tablename__ = "groups"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(50), nullable=False, unique=True)
+    description = db.Column(db.Text)
 
 def connect_db(app):
     """Connect this database to provided Flask app."""
