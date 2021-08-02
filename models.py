@@ -1,6 +1,6 @@
 """SQLAlchemy models for Calorie Counter."""
 
-from datetime import datetime
+import datetime
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 
@@ -79,15 +79,15 @@ class Profile(db.Model):
     city = db.Column(db.String(30))
     state = db.Column(db.String(2))
     gender = db.Column(db.Boolean)
-    dob = db.Column(db.DateTime, default=datetime.date())
+    # dob = db.Column(db.DateTime, default=datetime.date())
     reason = db.Column(db.Text)
     goal_cal = db.Column(db.Integer, nullable=False)
 
     user = db.relationship("User")
 
-    def __repr__(self):
-        """Human readable representation of profile table data."""
-        return f"<Profile: user={self.user_id} name={self.first_name} {self.last_name} location={self.city}, {self.state} gender={self.gender} dob={self.dob} reason='{self.reason}' goal_cal={self.goal_cal}>"
+    # def __repr__(self):
+    #     """Human readable representation of profile table data."""
+    #     return f"<Profile: user={self.user_id} name={self.first_name} {self.last_name} location={self.city}, {self.state} gender={self.gender} dob={self.dob} reason='{self.reason}' goal_cal={self.goal_cal}>"
 
 class Group(db.Model):
     """Support groups for users to join"""
@@ -108,7 +108,7 @@ class UserGroup(db.Model):
     __tablename__ = "users_groups"
 
     group_id = db.Column(db.Integer, db.ForeignKey('group.id', ondelete="cascade"), primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeginKey('user.id', ondelete="cascade"))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="cascade"))
 
     def __repr__(self):
         """Human readable representation of user_group table data."""
@@ -121,7 +121,7 @@ class Comment(db.Model):
     __tablename__ = "comments"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer, db.ForeginKey('user.id', ondelete="cascase"))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="cascase"))
     text = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
 
