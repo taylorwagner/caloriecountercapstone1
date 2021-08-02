@@ -2,7 +2,7 @@ Table users {
   id int [pk, increment]
   username string [unique, not null]
   password string [not null]
-  email email [not null]
+  email email [not null, unique]
 }
 
 Table profiles {
