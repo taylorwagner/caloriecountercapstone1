@@ -49,3 +49,15 @@ db.session.add.all([g1, g2, g3, g4])
 
 # Commit
 db.session.commit()
+
+# Add sample UserGroup
+ug1 = UserGroup(group_id=9988, user_id=553131)
+ug2 = UserGroup(group_id=9988, user_id=660101)
+ug3 = UserGroup(group_id=9998, user_id=553131)
+ug4 = UserGroup(group_id=9999, user_id=771010)
+
+# Add new objects to session, so they'll persist
+db.session.add.all([ug1, ug2, ug3, ug4])
+
+# Commit
+db.session.commit()
