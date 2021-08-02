@@ -23,7 +23,7 @@ connect_db(app)
 @app.before_request
 def add_user_to_g():
     """If user logged in, add current user to Flask global."""
-     if CURR_USER_KEY in session:
+    if CURR_USER_KEY in session:
         g.user = User.query.get(session[CURR_USER_KEY])
     
     else:
