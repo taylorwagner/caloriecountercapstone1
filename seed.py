@@ -37,3 +37,15 @@ db.session.add.all([p1, p2, p3, p4])
 
 # Commit
 db.session.commit()
+
+# Add sample groups
+g1 = Group(id=9988, name="#texashealthgroup", description="For users who currently live in Texas!")
+g2 = Group(id=9998, name="#youngandthriving", description="For users who are in their 20's")
+g3 = Group(id=9999, name="#classof99")
+g4 = Group(id=9888, name="#healthnewbies")
+
+# Add new objects to session, so they'll persist
+db.session.add.all([g1, g2, g3, g4])
+
+# Commit
+db.session.commit()
