@@ -1,6 +1,6 @@
 """Calorie Counter Flask App."""
 import os
-from flask import Flask
+from flask import Flask, session
 import flask_sqlalchemy
 from models import db, connect_db, User, Profile, Group, UserGroup, Follow, Comment
 
