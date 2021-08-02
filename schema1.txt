@@ -37,7 +37,7 @@ Table comments {
   id int [pk, increment]
   user_id int [fk]
   text string [not null]
-  timestamp datetime [not null]
+  created_at datetime [not null]
 }
 
 ## RELATIONSHIPS

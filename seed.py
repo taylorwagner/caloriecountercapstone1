@@ -74,12 +74,12 @@ db.session.add.all([f1, f2, f3, f4])
 # Commit
 db.session.commit()
 
-# # Add sample comments
-# c1 = Comment(user_id=553131, text="Working hard this week!", timestamp=01/01/1990)
-# c2 = Comment(user_id=553131, text="Texas here!", timestamp=01/01/1990)
+# Add sample comments
+c1 = Comment(user_id=553131, text="Working hard this week!")
+c2 = Comment(user_id=553131, text="Texas here!")
 
-# # Add new objects to session, so they'll persist
-# db.session.add.all([c1, c2])
+# Add new objects to session, so they'll persist
+db.session.add.all([c1, c2])
 
-# # Commit
-# db.session.commit()
+# Commit
+db.session.commit()

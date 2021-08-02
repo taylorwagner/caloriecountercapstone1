@@ -121,9 +121,14 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeginKey('user.id', ondelete="cascase"))
     text = db.Column(db.Text, nullable=False)
-    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
 
     user = db.relationship("User")
+
+    @property
+    def readable_date(self):
+        """Return formatted date."""
+        return self.created_at.strftime("%a %b %-d  %Y, %-I:%M %p")
 
     def __repr__(self):
         """Human readable representation of user table data."""
