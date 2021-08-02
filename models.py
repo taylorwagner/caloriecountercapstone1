@@ -69,6 +69,14 @@ class Group(db.Model):
     name = db.Column(db.String(50), nullable=False, unique=True)
     description = db.Column(db.Text)
 
+class UserGroup(db.Model):
+    """Connection of a user <-> support group."""
+
+    __tablename__ = "users_groups"
+
+    group_id = db.Column(db.Integer, db.ForeignKey('group.id', ondelete="cascade"), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeginKey('user.id', ondelete="cascade"))
+
 class Follow(db.Model):
     """Connection of a follower <-> followed_user."""
 
