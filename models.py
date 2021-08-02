@@ -8,6 +8,19 @@ bcrypt = Bcrypt()
 db = SQLAlchemy()
 
 
+class Follow(db.Model):
+    """Connection of a follower <-> followed_user."""
+
+    __tablename__ = "follows"
+
+    user_following_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="cascade"), primary_key=True)
+    user_followed_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="cascade"), primary_key=True)
+
+    def __repr__(self):
+        """Human readable representation of follow table data."""
+        return f"<Follow: user_following_id={self.user_following_id}, user_followed_id={self.user_followed_id}>"
+
+
 class User(db.Model):
     """User in the system."""
 
@@ -17,6 +30,14 @@ class User(db.Model):
     username = db.Column(db.String(25), nullable=False, unique=True)
     password = db.Column(db.Text(min=8, max=30), nullable=False)
     email = db.Column(db.Text, nullable=False, unique=True)
+
+    comments = db.relationship('Comment')
+
+    profiles = db.relationship('Profile')
+
+    following = db.relationship("User", secondary="follows", primaryjoin=(Follow.user_following_id == id), secondaryjoin=(Follow.user_followed_id == id))
+
+    followers = db.relationship("User", secondary="follows", primaryjoin=(Follow.user_followed_id == id), secondaryjoin=(Follow.user_following_id == id))
 
     def __repr__(self):
         """Human readable representation of user table data."""
@@ -60,6 +81,8 @@ class Profile(db.Model):
     reason = db.Column(db.Text)
     goal_cal = db.Column(db.Integer, nullable=False)
 
+    user = db.relationship("User")
+
     def __repr__(self):
         """Human readable representation of profile table data."""
         return f"<Profile: user={self.user_id} name={self.first_name} {self.last_name} location={self.city}, {self.state} gender={self.gender} dob={self.dob} reason='{self.reason}' goal_cal={self.goal_cal}>"
@@ -89,17 +112,6 @@ class UserGroup(db.Model):
         """Human readable representation of user_group table data."""
         return f"<UserGroup: group_id={self.group_id} user_id={self.user_id}>"
 
-class Follow(db.Model):
-    """Connection of a follower <-> followed_user."""
-
-    __tablename__ = "follows"
-
-    user_following_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="cascade"), primary_key=True)
-    user_followed_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="cascade"), primary_key=True)
-
-    def __repr__(self):
-        """Human readable representation of follow table data."""
-        return f"<Follow: user_following_id={self.user_following_id}, user_followed_id={self.user_followed_id}>"
 
 class Comment(db.Model):
     """Users can leave comments for themselves, users he/she follows, and groups he/she is in."""
@@ -110,6 +122,8 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeginKey('user.id', ondelete="cascase"))
     text = db.Column(db.Text, nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
+
+    user = db.relationship("User")
 
     def __repr__(self):
         """Human readable representation of user table data."""
