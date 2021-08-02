@@ -13,7 +13,7 @@ class User(db.Model):
 
     __tablename__ = "users"
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(25), nullable=False, unique=True)
     password = db.Column(db.Text(min=8, max=30), nullable=False)
     email = db.Column(db.Text, nullable=False, unique=True)
@@ -59,6 +59,13 @@ class Profile(db.Model):
     dob = db.Column(db.Datetime.Date)
     reason = db.Column(db.Text)
     goal_cal = db.Column(db.Integer, nullable=False)
+
+class Group(db.Model):
+    """Support groups for users to join"""
+
+    __tablename__ = "groups"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
 def connect_db(app):
     """Connect this database to provided Flask app."""
