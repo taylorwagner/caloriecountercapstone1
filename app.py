@@ -2,6 +2,7 @@
 
 import os
 from flask import Flask, session, g, request, render_template, redirect, flash
+from sqlalchemy.exc import IntegrityError
 from forms import UserAddForm
 from models import db, connect_db, User, Profile, Group, UserGroup, Follow, Comment
 
@@ -44,3 +45,19 @@ def signup():
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
     form = UserAddForm()
+
+    if form.validate_on_submit():
+        try:
+            user = User.signup(username=form.username.data, password=form.password.data, email=form.password.data)
+            db.session.commit()
+
+        except IntegrityError as e:
+            flash("Username or E-mail aldready taken.", 'danger')
+            return render_template("users/signup.html", form=form)
+
+        do_login(user)
+
+        return redirect("/")
+
+    else:
+        return render_template("users/signup.html", form=form)
