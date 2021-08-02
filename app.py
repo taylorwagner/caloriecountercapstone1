@@ -1,7 +1,8 @@
 """Calorie Counter Flask App."""
+
 import os
 from flask import Flask, session, g, request, render_template, redirect, flash
-import flask_sqlalchemy
+from forms import UserAddForm
 from models import db, connect_db, User, Profile, Group, UserGroup, Follow, Comment
 
 CURR_USER_KEY = "curr_user"
