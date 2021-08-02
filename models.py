@@ -69,6 +69,14 @@ class Group(db.Model):
     name = db.Column(db.String(50), nullable=False, unique=True)
     description = db.Column(db.Text)
 
+class Follow(db.Model):
+    """Connection of a follower <-> followed_user."""
+
+    __tablename__ = "follows"
+
+    user_following_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="cascade"), primary_key=True)
+    user_followed_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="cascade"), primary_key=True)
+
 def connect_db(app):
     """Connect this database to provided Flask app."""
     db.app = app
