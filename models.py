@@ -20,7 +20,7 @@ class User(db.Model):
 
     def __repr__(self):
         """Human readable representation of user table data."""
-        return f"User #{self.id}: {self.username}, {self.email}>"
+        return f"<User #{self.id}: {self.username}, {self.email}>"
 
     @classmethod
     def signup(cls, username, password, email):
@@ -54,11 +54,15 @@ class Profile(db.Model):
     first_name = db.Column(db.String(30))
     last_name = db.Column(db.String(30))
     city = db.Column(db.String(30))
-    state = db.Column(db.String(30))
+    state = db.Column(db.String(2))
     gender = db.Column(db.Boolean)
     dob = db.Column(db.DateTime, default=datetime.date())
     reason = db.Column(db.Text)
     goal_cal = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        """Human readable representation of profile table data."""
+        return f"<Profile: user={self.user_id} name={self.first_name} {self.last_name} location={self.city}, {self.state} gender={self.gender} dob={self.dob} reason='{self.reason}' goal_cal={self.goal_cal}>"
 
 class Group(db.Model):
     """Support groups for users to join"""
@@ -69,6 +73,10 @@ class Group(db.Model):
     name = db.Column(db.String(50), nullable=False, unique=True)
     description = db.Column(db.Text)
 
+    def __repr__(self):
+        """Human readable representation of group table data."""
+        return f"<Group: id={self.id} name={self.name} desc='{self.description}'>"
+
 class UserGroup(db.Model):
     """Connection of a user <-> support group."""
 
@@ -77,6 +85,10 @@ class UserGroup(db.Model):
     group_id = db.Column(db.Integer, db.ForeignKey('group.id', ondelete="cascade"), primary_key=True)
     user_id = db.Column(db.Integer, db.ForeginKey('user.id', ondelete="cascade"))
 
+    def __repr__(self):
+        """Human readable representation of user_group table data."""
+        return f"<UserGroup: group_id={self.group_id} user_id={self.user_id}>"
+
 class Follow(db.Model):
     """Connection of a follower <-> followed_user."""
 
@@ -84,6 +96,10 @@ class Follow(db.Model):
 
     user_following_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="cascade"), primary_key=True)
     user_followed_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="cascade"), primary_key=True)
+
+    def __repr__(self):
+        """Human readable representation of follow table data."""
+        return f"<Follow: user_following_id={self.user_following_id}, user_followed_id={self.user_followed_id}>"
 
 class Comment(db.Model):
     """Users can leave comments for themselves, users he/she follows, and groups he/she is in."""
@@ -94,6 +110,10 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeginKey('user.id', ondelete="cascase"))
     text = db.Column(db.Text, nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
+
+    def __repr__(self):
+        """Human readable representation of user table data."""
+        return f"<Comment: id={self.id} text={self.text} timestamp={self.timestamp}>"
 
 def connect_db(app):
     """Connect this database to provided Flask app."""
