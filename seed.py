@@ -50,7 +50,7 @@ db.session.add.all([g1, g2, g3, g4])
 # Commit
 db.session.commit()
 
-# Add sample UserGroup
+# Add sample users_groups
 ug1 = UserGroup(group_id=9988, user_id=553131)
 ug2 = UserGroup(group_id=9988, user_id=660101)
 ug3 = UserGroup(group_id=9998, user_id=553131)
@@ -58,6 +58,18 @@ ug4 = UserGroup(group_id=9999, user_id=771010)
 
 # Add new objects to session, so they'll persist
 db.session.add.all([ug1, ug2, ug3, ug4])
+
+# Commit
+db.session.commit()
+
+# Add sample follows
+f1 = Follow(user_following_id=553131, user_followed_id=771010)
+f2 = Follow(user_following_id=771010, user_followed_id=553131)
+f3 = Follow(user_following_id=771010, user_followed_id=660101)
+f4 = Follow(user_following_id=440202, user_followed_id=660101)
+
+# Add new objects to session, so they'll persist
+db.session.add.all([f1, f2, f3, f4])
 
 # Commit
 db.session.commit()
