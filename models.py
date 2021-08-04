@@ -31,9 +31,9 @@ class User(db.Model):
     password = db.Column(db.String(30), nullable=False)
     email = db.Column(db.Text, nullable=False, unique=True)
 
-    comments = db.relationship('Comment')
+    comments = db.relationship('Comment', backref="user", cascade="all, delete-orphan")
 
-    profiles = db.relationship('Profile')
+    profiles = db.relationship('Profile', backref="user", cascade="all, delete-orphan")
 
     following = db.relationship("User", secondary="follows", primaryjoin=(Follow.user_following_id == id), secondaryjoin=(Follow.user_followed_id == id))
 
@@ -83,8 +83,6 @@ class Profile(db.Model):
     reason = db.Column(db.Text)
     goal_cal = db.Column(db.Integer, nullable=False)
 
-    user = db.relationship("User")
-
     # def __repr__(self):
     #     """Human readable representation of profile table data."""
     #     return f"<Profile: user={self.user_id} name={self.first_name} {self.last_name} location={self.city}, {self.state} gender={self.gender} dob={self.dob} reason='{self.reason}' goal_cal={self.goal_cal}>"
@@ -124,8 +122,6 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="cascase"))
     text = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
-
-    user = db.relationship("User")
 
     @property
     def readable_date(self):
