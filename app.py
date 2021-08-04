@@ -84,6 +84,28 @@ def login():
     return render_template('users/login.html', form=form)
 
 
+@app.route('/profile', methods=["GET", "POST"])
+def create_profile(user_id):
+    """After initial sign up, offer user a chance to add profile details to account."""
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect('/')
+
+    user = User.query.get_or_404(user_id)
+    form = UserProfileForm()
+
+    if form.validate_on_submit():
+        p = Profile(user_id=user.id, first_name=form.first_name.data, last_name=form.last_name.data, city=form.city.data, state=form.state.data, gender=form.gender.data, dob=form.dob.data, reason=form.reason.data)
+
+        db.session.add(p)
+        db.session.commit()
+
+        flash(f"Successfully created a profile for {user.username}!", 'success')
+        return redirect(f"/profile/{user.id}")
+
+    return render_template('users/profile.html', user_id=user.id, form=form)
+
+
 @app.route('/logout')
 def logout():
     """Handle logout of user."""
@@ -91,6 +113,9 @@ def logout():
     flash("Successfully logged out.", 'success')
 
     return redirect('/')
+
+
+## PROFILE ROUTES
 
 
 ## APPLICATION HOMEPAGE
