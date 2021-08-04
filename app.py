@@ -118,16 +118,20 @@ def create_profile(user_id):
     return render_template('profiles/create.html', user_id=user.id, form=form)
 
 
-@app.route('/profile/<int:user_id')
+@app.route('/profile/<int:user_id>')
 def show_user_profile(user_id):
     """Show profile of user."""
-    if not g.user:
-        flash("Access unauthorized.", 'danger')
-        return redirect('/')
-
     user = User.query.get_or_404(user_id)
 
     return render_template('profiles/show.html', user=user)
+
+
+@app.route('/profile/<int:user_id>/details')
+def show_user_profile_details(user_id):
+    """Show profile details of user."""
+    profile = Profile.query.get_or_404(user_id)
+
+    return render_template('profiles/detail.html', profile=profile)
 
 
 ## APPLICATION HOMEPAGE
