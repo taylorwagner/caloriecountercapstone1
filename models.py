@@ -30,6 +30,7 @@ class User(db.Model):
     username = db.Column(db.String(25), nullable=False, unique=True)
     password = db.Column(db.String(30), nullable=False)
     email = db.Column(db.Text, nullable=False, unique=True)
+    goal_cal = db.Column(db.Integer, nullable=False)
 
     comments = db.relationship('Comment', backref="user", cascade="all, delete-orphan")
 
@@ -43,14 +44,14 @@ class User(db.Model):
 
     def __repr__(self):
         """Human readable representation of user table data."""
-        return f"<User #{self.id}: {self.username}, {self.email}>"
+        return f"<User #{self.id}: {self.username}, {self.email}, goal_calories={self.goal_cal}>"
 
     @classmethod
-    def signup(cls, username, password, email):
+    def signup(cls, username, password, email, goal_cal):
         """Sign up a user. Hashes password and adds user to the system."""
         hashed_pw = bcrypt.generate_password_hash(password).decode('UTF-8')
 
-        user = User(username=username, password=hashed_pw, email=email)
+        user = User(username=username, password=hashed_pw, email=email, goal_cal=goal_cal)
 
         db.session.add(user)
         return user
@@ -81,11 +82,10 @@ class Profile(db.Model):
     gender = db.Column(db.Boolean)
     # dob = db.Column(db.DateTime, default=datetime.date())
     reason = db.Column(db.Text)
-    goal_cal = db.Column(db.Integer, nullable=False)
 
     # def __repr__(self):
     #     """Human readable representation of profile table data."""
-    #     return f"<Profile: user={self.user_id} name={self.first_name} {self.last_name} location={self.city}, {self.state} gender={self.gender} dob={self.dob} reason='{self.reason}' goal_cal={self.goal_cal}>"
+    #     return f"<Profile: user={self.user_id} name={self.first_name} {self.last_name} location={self.city}, {self.state} gender={self.gender} dob={self.dob} reason='{self.reason}'>"
 
 class Group(db.Model):
     """Support groups for users to join"""
@@ -119,7 +119,7 @@ class Comment(db.Model):
     __tablename__ = "comments"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="cascase"))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="cascade"))
     text = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
 
@@ -130,7 +130,7 @@ class Comment(db.Model):
 
     def __repr__(self):
         """Human readable representation of user table data."""
-        return f"<Comment: id={self.id} text={self.text} timestamp={self.timestamp}>"
+        return f"<Comment: id={self.id} text={self.text} timestamp={self.created_at}>"
 
 def connect_db(app):
     """Connect this database to provided Flask app."""
