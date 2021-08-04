@@ -84,6 +84,15 @@ def login():
     return render_template('users/login.html', form=form)
 
 
+@app.route('/logout')
+def logout():
+    """Handle logout of user."""
+    do_logout()
+    flash("Successfully logged out.", 'success')
+
+    return redirect('/')
+
+
 ## APPLICATION HOMEPAGE
 
 
