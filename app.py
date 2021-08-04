@@ -51,7 +51,7 @@ def signup():
 
     if form.validate_on_submit():
         try:
-            user = User.signup(username=form.username.data, password=form.password.data, email=form.password.data, goal_cal=form.goalCal.data)
+            user = User.signup(username=form.username.data, password=form.password.data, email=form.password.data, goal_cal=form.goal_cal.data)
             db.session.commit()
 
         except IntegrityError as e:
