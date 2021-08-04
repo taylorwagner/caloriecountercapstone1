@@ -3,7 +3,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, TextAreaField, SelectField
 from wtforms.fields.core import BooleanField, DateField, IntegerField
-from wtforms.validators import InputRequired, Length, Optional
+from wtforms.validators import InputRequired, Length, Optional, Email
 
 STATE_ABBREV = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 
                 'HI', 'ID', 'IL', 'IN', 'IO', 'KS', 'KY', 'LA', 'ME', 'MD', 
@@ -17,7 +17,7 @@ class UserAddForm(FlaskForm):
 
     username = StringField('Username', validators=[InputRequired(message="Unique username is required."), Length(max=25)])
     password = PasswordField('Password', validators=[InputRequired(message="Must create a password between 8-30 characters."), Length(min=8, max=30)])
-    email = StringField('E-mail', validators=[InputRequired(message="Unique e-mail address is required.")])
+    email = StringField('E-mail', validators=[InputRequired(message="Unique e-mail address is required."), Email()])
     goal_cal = IntegerField("Daily Caloric Goal", validators=[InputRequired(message="Must include a daily caloric goal to sign-up. May change goal later.")])
 
 
@@ -29,7 +29,7 @@ class LoginForm(FlaskForm):
 
 
 class UserProfileForm(FlaskForm):
-    """Form for creating user's profile information."""
+    """Form for creating/editing user's profile information."""
 
     first_name = StringField('First Name', validators=[Optional()])
     last_name = StringField('Last Name', validators=[Optional()])
@@ -38,6 +38,13 @@ class UserProfileForm(FlaskForm):
     gender = BooleanField('Male/Female', validators=[Optional()])
     dob = DateField('Date of Birth', validators=[Optional()])
     reason = TextAreaField('Reason(s) for Joining Calorie Counter', validators=[Optional()])
+
+
+class UserCalEditForm(FlaskForm):
+    """Form for editing user's calorie goal."""
+
+    goal_cal = IntegerField("Daily Caloric Goal", validators=[InputRequired()])
+    password = PasswordField('Password', validators=[InputRequired(), Length(min=8, max=30)])
 
 
 class GroupForm(FlaskForm):
