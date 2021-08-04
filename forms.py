@@ -38,3 +38,28 @@ class UserProfileForm(FlaskForm):
     gender = BooleanField('Male/Female', validators=[Optional()])
     dob = DateField('Date of Birth', validators=[Optional()])
     reason = TextAreaField('Reason(s) for Joining Calorie Counter', validators=[Optional()])
+
+
+class GroupForm(FlaskForm):
+    """Form for adding/editing groups."""
+
+    name = StringField('Name of Group', validators=[InputRequired(message="Must include a comment.")])
+    description = StringField('Description of Group', validators=[Optional()])
+
+
+class CommentForm(FlaskForm):
+    """Form for adding/editing comments."""
+
+    text = TextAreaField('Comment', validators=[InputRequired(message="Must include a comment.")])
+
+
+class FoodForm(FlaskForm):
+    """Form for logging food items."""
+
+    food = StringField('Food Item', validators=[InputRequired(message="Must include food item.")])
+
+
+class ExerciseForm(FlaskForm):
+    """Form for logging exercises."""
+
+    exercise = StringField('Exercise Type', validators=[InputRequired(message="Must include an exercise type.")])
