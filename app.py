@@ -30,14 +30,17 @@ def add_user_to_g():
     else:
         g.user = None
 
+
 def do_login(user):
     """Login user."""
     session[CURR_USER_KEY] = user.id
+
 
 def do_logout():
     """Logout user."""
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
+
 
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
@@ -61,6 +64,24 @@ def signup():
 
     else:
         return render_template("users/signup.html", form=form)
+
+    
+@app.route('/login', methods=["GET", "POST"])
+def login():
+    """Handle user login."""
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        user = User.authenticate(form.username.data, form.password.data)
+
+        if user:
+            do_login(user)
+            flash(f"Hello, {user.username}! Welcome to Calorie Counter!", 'success')
+            return redirect(f"/profile/{user.user_id}")
+
+        flash("Invalid credentials!", 'danger')
+
+    return render_template('users/login.html', form=form)
 
 
 ## APPLICATION HOMEPAGE
