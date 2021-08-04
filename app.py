@@ -60,7 +60,7 @@ def signup():
 
         do_login(user)
 
-        return render_template("users/profile.html")
+        return render_template("profiles/create.html")
 
     else:
         return render_template("users/signup.html", form=form)
@@ -84,6 +84,18 @@ def login():
     return render_template('users/login.html', form=form)
 
 
+@app.route('/logout')
+def logout():
+    """Handle logout of user."""
+    do_logout()
+    flash("Successfully logged out.", 'success')
+
+    return redirect('/')
+
+
+## PROFILE ROUTES
+
+
 @app.route('/profile', methods=["GET", "POST"])
 def create_profile(user_id):
     """After initial sign up, offer user a chance to add profile details to account."""
@@ -103,19 +115,7 @@ def create_profile(user_id):
         flash(f"Successfully created a profile for {user.username}!", 'success')
         return redirect(f"/profile/{user.id}")
 
-    return render_template('users/profile.html', user_id=user.id, form=form)
-
-
-@app.route('/logout')
-def logout():
-    """Handle logout of user."""
-    do_logout()
-    flash("Successfully logged out.", 'success')
-
-    return redirect('/')
-
-
-## PROFILE ROUTES
+    return render_template('profiles/create.html', user_id=user.id, form=form)
 
 
 ## APPLICATION HOMEPAGE
