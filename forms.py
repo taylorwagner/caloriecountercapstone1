@@ -64,9 +64,11 @@ class FoodForm(FlaskForm):
     """Form for logging food items."""
 
     food = StringField('Food Item', validators=[InputRequired(message="Must include food item.")])
+    date = DateField('Date', validators=[InputRequired(message="Must include the date.")])
 
 
 class ExerciseForm(FlaskForm):
     """Form for logging exercises."""
 
     exercise = StringField('Exercise Type', validators=[InputRequired(message="Must include an exercise type.")])
+    date = DateField('Date', validators=[InputRequired(message="Must include the date.")])
