@@ -81,6 +81,7 @@ class Group(db.Model):
         """Human readable representation of group table data."""
         return f"<Group: id={self.id} name={self.name} desc='{self.description}'>"
 
+
 class UserGroup(db.Model):
     """Connection of a user <-> support group."""
 

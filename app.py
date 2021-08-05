@@ -50,7 +50,7 @@ def signup():
 
     if form.validate_on_submit():
         try:
-            user = User.signup(username=form.username.data, password=form.password.data, email=form.password.data, goal_cal=form.goal_cal.data)
+            user = User.signup(username=form.username.data, password=form.password.data, email=form.password.data, goal_cal=form.goal_cal.data, city=form.city.data, state=form.state.data)
             db.session.commit()
 
         except IntegrityError as e:
@@ -90,6 +90,20 @@ def logout():
     flash("Successfully logged out.", 'success')
 
     return redirect('/')
+
+
+## PROFILE PAGES
+
+
+@app.route('/profile/<int:user_id>')
+def show_profile_page(user_id):
+    """Show profile page for user."""
+    if not g.user:
+        return redirect('/')
+
+    user = User.query.get_or_404(user_id)
+
+    return render_template("profiles/show.html", user=user)
 
 
 ## APPLICATION MAIN PAGES
