@@ -2,6 +2,19 @@
 
 {% block content %}
 
-<h1>Profile Details</h1>
+<div class="container">
+    <h1 class="h1">Profile Details for {{ profile.user.username }}</h1>
+        <ul>
+            <li><b>First Name:</b> {{ profile.first_name }}</li>
+            <li><b>Last Name:</b> {{ profile.last_name }}</li>
+            <li><b>City:</b> {{ profile.city }}</li>
+            <li><b>State:</b> {{ profile.state }}</li>
+            <li><b>Gender:</b> {{ profile.gender }}</li>
+            <li><b>Reason:</b> {{ profile.reason }}</li>
+        </ul>
+        <p>Do you want to edit your profile?</p>
+        <a href="" class="btn btn-primary">Edit Profile</a>
+        <a href="/profile/{{ profile.user.id }}" class="btn btn-success">Cancel</a>
+</div>
 
 {% endblock %}
