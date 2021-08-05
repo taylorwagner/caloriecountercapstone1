@@ -2,6 +2,21 @@
 
 {% block content %}
 
-<h1>Signup</h1>
+<div class="container">
+    <h1 class="h1">Sign Up for Calorie Counter</h1>
+    <p>Please create a unique username and password. Passwords must be between 8-30 characters in length. The daily caloric goal must be entered at this time, but can be altered in the future. Each field is required to obtain an account.</p>
+    <form method="POST" id="signup_form">
+        {{ form.hidden_tag() }}
+
+        {% for field in form if field.widget.input_type != 'hidden' %}
+            {% for error in field.errors %}
+            <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+            {{ field(placeholder=field.label.text, class="form-control") }}
+        {% endfor %}
+
+        <button class="btn btn-primary">Sign Up!</button>
+    </form>
+</div>
 
 {% endblock %}
