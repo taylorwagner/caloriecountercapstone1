@@ -12,8 +12,8 @@ STATE_ABBREV = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
                 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
 
 
-class UserAddForm(FlaskForm):
-    """Form for adding users."""
+class UserForm(FlaskForm):
+    """Form for adding/editing users."""
 
     username = StringField('Username', validators=[InputRequired(message="Unique username is required."), Length(max=25)])
     password = PasswordField('Password', validators=[InputRequired(message="Must create a password with a minimum of 8 characters."), Length(min=8)])
@@ -28,13 +28,6 @@ class LoginForm(FlaskForm):
 
     username = StringField('Username', validators=[InputRequired(message="Unique username is required."), Length(max=25)])
     password = PasswordField('Password', validators=[InputRequired(message="Must create a password with a minimum of 8 characters."), Length(min=8)])
-
-
-class UserCalEditForm(FlaskForm):
-    """Form for editing user's calorie goal."""
-
-    goal_cal = IntegerField("Daily Caloric Goal", validators=[InputRequired()])
-    password = PasswordField('Password', validators=[InputRequired(), Length(min=8)])
 
 
 class GroupForm(FlaskForm):

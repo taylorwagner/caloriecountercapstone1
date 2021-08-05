@@ -3,18 +3,18 @@
 {% block content %}
 
 <div class="container">
-    <h1 class="h1">Account Details for {{ user.username }}</h1>
+    <h1 class="h1">Account for {{ user.username }}</h1>
         <ul>
             <li><b>Username:</b> {{ user.username }}</li>
             <li><b>Email:</b> {{ user.email }}</li>
-            <li><b>Daily Calorie Goal:</b> {{ user.goal_cal }} <a href="" class="btn btn-primary">Edit Goal</a> </li>
+            <li><b>Daily Calorie Goal:</b> {{ user.goal_cal }}</li>
             <li><b>City:</b> {{ user.city }}</li>
             <li><b>State:</b> {{ user.state }}</li>
         </ul>
         <p>Do you want to edit your account?</p>
-        <a href="" class="btn btn-primary">Edit Account</a>
+        <a href="/account/{{ user.id }}/edit" class="btn btn-primary">Edit Account</a>
         <a href="" class="btn btn-danger">Delete Account</a>
-        <a href="/profile/{{ user.id }}" class="btn btn-success">Cancel</a>
+        <a href="/profile/{{ user.id }}" class="btn btn-success">Back to Profile</a>
 </div>
 
 {% endblock %}

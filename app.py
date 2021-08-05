@@ -2,7 +2,7 @@
 
 from flask import Flask, session, g, request, render_template, redirect, flash
 from sqlalchemy.exc import IntegrityError
-from forms import UserAddForm, LoginForm, UserCalEditForm, GroupForm, CommentForm, FoodForm, ExerciseForm
+from forms import UserForm, LoginForm, GroupForm, CommentForm, FoodForm, ExerciseForm
 from models import db, connect_db, User, Group, UserGroup, Follows, Comment
 
 CURR_USER_KEY = "curr_user"
@@ -46,7 +46,7 @@ def signup():
     """Handle user signup. Create new user and add to DB. Redirect to homepage. If the form is not valid, present form. If the username or email is not unique, flash message and reload the form."""
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
-    form = UserAddForm()
+    form = UserForm()
 
     if form.validate_on_submit():
         try:
@@ -103,8 +103,9 @@ def show_user_profile(user_id):
     return render_template("users/show.html", user=user)
 
 
-@app.route('/profile/<int:user_id>/account')
+@app.route('/account/<int:user_id>')
 def show_user_account(user_id):
+    """Show user's account."""
     if not g.user:
         flash("Access unauthorized.", 'danger')
         return redirect('/')
@@ -112,6 +113,35 @@ def show_user_account(user_id):
     user = User.query.get_or_404(user_id)
 
     return render_template("users/account.html", user=user)
+
+
+@app.route('/account/<int:user_id>/edit', methods=["GET", "POST"])
+def edit_user_account(user_id):
+    """Edit user's account."""
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect('/')
+
+    user = g.user
+    form = UserForm(obj=user)
+
+    if form.validate_on_submit():
+        if User.authenticate(user.username, form.password.data):
+            user.username = form.username.data
+            user.email = form.email.data
+            user.goal_cal = form.goal_cal.data
+            user.city = form.city.data
+            user.state = form.state.data
+
+            db.session.commit()
+
+            flash(f"Edited account for {user.username}", 'success')
+            return redirect(f"/account/{user.id}")
+        
+        flash("Wrong password, please try again!!", 'danger')
+
+    return render_template('users/edit.html', user_id=user.id, form=form)
+    
 
 
 ## APPLICATION MAIN PAGES

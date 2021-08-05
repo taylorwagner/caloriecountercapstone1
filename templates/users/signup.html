@@ -5,7 +5,7 @@
 <div class="container">
     <h1 class="h1">Sign Up for Calorie Counter</h1>
     <p>Please create a unique username and password. Must create a password with a minimum of 8 characters. The daily caloric goal must be entered at this time, but can be altered in the future. Each field is required to obtain an account.</p>
-    <form method="POST" id="signup_form">
+    <form method="POST" id="user_form">
         {{ form.hidden_tag() }}
 
         {% for field in form if field.widget.input_type != 'hidden' %}
