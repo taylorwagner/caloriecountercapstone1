@@ -104,7 +104,8 @@ class UserGroup(db.Model):
 
     __tablename__ = "users_groups"
 
-    group_id = db.Column(db.Integer, db.ForeignKey('groups.id', ondelete="cascade"), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    group_id = db.Column(db.Integer, db.ForeignKey('groups.id', ondelete="cascade"))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="cascade"))
 
     def __repr__(self):

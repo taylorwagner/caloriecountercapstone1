@@ -29,7 +29,8 @@ Table follows {
 }
 
 Table users_groups {
-  group_id int [pk, fk]
+  id int [pk]
+  group_id int [fk]
   user_id int [fk]
 }
 
