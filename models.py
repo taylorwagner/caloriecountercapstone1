@@ -13,8 +13,8 @@ class Follow(db.Model):
 
     __tablename__ = "follows"
 
-    user_following_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="cascade"), primary_key=True)
-    user_followed_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="cascade"), primary_key=True)
+    user_following_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="cascade"), primary_key=True)
+    user_followed_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="cascade"), primary_key=True)
 
     def __repr__(self):
         """Human readable representation of follow table data."""
@@ -105,8 +105,8 @@ class UserGroup(db.Model):
 
     __tablename__ = "users_groups"
 
-    group_id = db.Column(db.Integer, db.ForeignKey('group.id', ondelete="cascade"), primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="cascade"))
+    group_id = db.Column(db.Integer, db.ForeignKey('groups.id', ondelete="cascade"), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="cascade"))
 
     def __repr__(self):
         """Human readable representation of user_group table data."""
@@ -119,7 +119,7 @@ class Comment(db.Model):
     __tablename__ = "comments"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="cascade"))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="cascade"))
     text = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
 
