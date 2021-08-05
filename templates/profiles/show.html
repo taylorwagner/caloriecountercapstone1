@@ -4,6 +4,21 @@
 
 <div class="container">
     <h1 class="h1">Profile of {{ user.username }}</h1>
+    <h2 class="h2">Daily Caloric Goal: {{ user.goal_cal }}</h2>
+    <a href="" class="btn btn-primary">Edit Goal</a>
+    <ul>
+        <li><a href="">Groups</a></li>
+        <li><a href="">Following</a></li>
+        <li><a href="">Followers</a></li>
+    </ul>
+    <div>
+        <p>Calendar will be here</p>
+    </div>
+    <div>
+        <h3 class="h3">Comments</h3>
+        <a href="" class="btn btn-primary">Post Comment</a>
+        <p>Comments will go here</p>
+    </div>
 </div>
 
 {% endblock %}
