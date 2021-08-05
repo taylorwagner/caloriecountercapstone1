@@ -15,10 +15,18 @@ Follows.query.delete()
 Comment.query.delete()
 
 # Add sample users
-fake_u1 = User.signup(id=553131, username="sanrpor", password="password", email="sanrpor@test.com", goal_cal=1800)
-fake_u2 = User.signup(id=771010, username="leopeezy3", password="testpassword", email="lpp@gmail.com", goal_cal=1300)
-fake_u3 = User.signup(id=660101, username="meglporter", password="testpwpw", email="fake@email.com", goal_cal=1000)
-fake_u4 = User.signup(id=440202, username="pauliefbaby", password="samplepassword", email="sports@nfl.com", goal_cal=3000)
+fake_u1 = User.signup(username="sanrpor", password="password", email="sanrpor@test.com", goal_cal=1800)
+fake_u1id = 553131
+fake_u1.id = fake_u1id
+fake_u2 = User.signup(username="leopeezy3", password="testpassword", email="lpp@gmail.com", goal_cal=1300)
+fake_u2id = 771010
+fake_u2.id = fake_u2id
+fake_u3 = User.signup(username="meglporter", password="testpwpw", email="fake@email.com", goal_cal=1000)
+fake_u3id = 660101
+fake_u3.id = fake_u3id
+fake_u4 = User.signup(username="pauliefbaby", password="samplepassword", email="sports@nfl.com", goal_cal=3000)
+fake_u4id = 440202
+fake_u4.id = fake_u4id
 
 # Add new objects to sesion, so they'll persist
 db.session.add_all([fake_u1, fake_u2, fake_u3, fake_u4])
