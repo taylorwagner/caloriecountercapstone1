@@ -16,7 +16,7 @@ class UserAddForm(FlaskForm):
     """Form for adding users."""
 
     username = StringField('Username', validators=[InputRequired(message="Unique username is required."), Length(max=25)])
-    password = PasswordField('Password', validators=[InputRequired(message="Must create a password between 8-30 characters."), Length(min=8, max=30)])
+    password = PasswordField('Password', validators=[InputRequired(message="Must create a password with a minimum of 8 characters."), Length(min=8)])
     email = StringField('E-mail', validators=[InputRequired(message="Unique e-mail address is required.")])
     goal_cal = IntegerField("Daily Caloric Goal", validators=[InputRequired(message="Must include a daily caloric goal to sign-up. May change goal later.")])
 
@@ -25,7 +25,7 @@ class LoginForm(FlaskForm):
     """Login form."""
 
     username = StringField('Username', validators=[InputRequired(message="Unique username is required."), Length(max=25)])
-    password = PasswordField('Password', validators=[InputRequired(message="Must create a password between 8-30 characters."), Length(min=8, max=30)])
+    password = PasswordField('Password', validators=[InputRequired(message="Must create a password with a minimum of 8 characters."), Length(min=8)])
 
 
 class UserProfileForm(FlaskForm):
@@ -44,7 +44,7 @@ class UserCalEditForm(FlaskForm):
     """Form for editing user's calorie goal."""
 
     goal_cal = IntegerField("Daily Caloric Goal", validators=[InputRequired()])
-    password = PasswordField('Password', validators=[InputRequired(), Length(min=8, max=30)])
+    password = PasswordField('Password', validators=[InputRequired(), Length(min=8)])
 
 
 class GroupForm(FlaskForm):

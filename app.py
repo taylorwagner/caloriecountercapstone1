@@ -1,6 +1,5 @@
 """Calorie Counter Flask App."""
 
-import os
 from flask import Flask, session, g, request, render_template, redirect, flash
 from sqlalchemy.exc import IntegrityError
 from forms import UserAddForm, LoginForm, UserProfileForm, UserCalEditForm, GroupForm, CommentForm, FoodForm, ExerciseForm
@@ -10,10 +9,10 @@ CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = (os.environ.get('DATABASE_URL', 'postgres:///calcount'))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///calcount'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "shh")
+app.config['SECRET_KEY'] = "shh"
 
 connect_db(app)
 

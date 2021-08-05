@@ -28,7 +28,7 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(25), nullable=False, unique=True)
-    password = db.Column(db.String(30), nullable=False)
+    password = db.Column(db.String(), nullable=False)
     email = db.Column(db.Text, nullable=False, unique=True)
     goal_cal = db.Column(db.Integer, nullable=False)
 
