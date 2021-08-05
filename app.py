@@ -58,7 +58,7 @@ def signup():
             return render_template("users/signup.html", form=form)
 
         do_login(user)
-
+        flash(f"Hello, {user.username}! Welcome to Calorie Counter!", 'success')
         return redirect(f"/profile/{user.id}")
 
     else:
@@ -75,7 +75,7 @@ def login():
 
         if user:
             do_login(user)
-            flash(f"Hello, {user.username}! Welcome to Calorie Counter!", 'success')
+            flash(f"Log in for {user.username} was successful!", 'success')
             return redirect(f"/profile/{user.id}")
 
         flash("Invalid credentials!", 'danger')
@@ -96,14 +96,22 @@ def logout():
 
 
 @app.route('/profile/<int:user_id>')
-def show_profile_page(user_id):
+def show_user_profile(user_id):
     """Show profile page for user."""
-    if not g.user:
-        return redirect('/')
-
     user = User.query.get_or_404(user_id)
 
-    return render_template("profiles/show.html", user=user)
+    return render_template("users/show.html", user=user)
+
+
+@app.route('/profile/<int:user_id>/account')
+def show_user_account(user_id):
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect('/')
+    
+    user = User.query.get_or_404(user_id)
+
+    return render_template("users/account.html", user=user)
 
 
 ## APPLICATION MAIN PAGES
