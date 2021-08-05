@@ -129,18 +129,43 @@ def show_user_profile(user_id):
 @app.route('/profile/<int:user_id>/details')
 def show_user_profile_details(user_id):
     """Show profile details of user."""
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect('/')
+
     profile = Profile.query.get_or_404(user_id)
 
     return render_template('profiles/detail.html', profile=profile)
 
 
-## APPLICATION HOMEPAGE
+@app.route('/profile/<int:user_id>/details/delete', methods=["POST"])
+def delete_profile(user_id):
+    """Delete profile details of user."""
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect("/")
+
+    user = User.query.get_or_404(user_id)
+
+    db.session.delete(f"{user.profile.id}")
+    db.session.commit()
+
+    return redirect(f"/profile/{user.id}")
+
+
+## APPLICATION MAIN PAGES
 
 
 @app.route('/')
 def homepage():
     """Application homepage. Advertisement/explanation of application with options to either signup or login."""
     return render_template('home.html')
+
+
+@app.route('/about')
+def about_page():
+    """Application about page. Inform user's about application."""
+    return render_template('about.html')
 
 
 # Turn off all caching in Flask
