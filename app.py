@@ -2,7 +2,7 @@
 
 from flask import Flask, session, g, request, render_template, redirect, flash
 from sqlalchemy.exc import IntegrityError
-from forms import UserForm, LoginForm, GroupForm, CommentForm, FoodForm, ExerciseForm
+from forms import UserForm, LoginForm, GroupForm, CommentForm, FoodForm, ExerciseForm, DeleteForm
 from models import db, connect_db, User, Group, UserGroup, Follows, Comment
 
 CURR_USER_KEY = "curr_user"
@@ -96,7 +96,7 @@ def logout():
 
 
 @app.route('/profile/<int:user_id>')
-def show_user_profile(user_id):
+def show_profile(user_id):
     """Show profile page for user."""
     user = User.query.get_or_404(user_id)
 
@@ -104,7 +104,7 @@ def show_user_profile(user_id):
 
 
 @app.route('/account/<int:user_id>')
-def show_user_account(user_id):
+def show_account(user_id):
     """Show user's account."""
     if not g.user:
         flash("Access unauthorized.", 'danger')
@@ -116,7 +116,7 @@ def show_user_account(user_id):
 
 
 @app.route('/account/<int:user_id>/edit', methods=["GET", "POST"])
-def edit_user_account(user_id):
+def edit_account(user_id):
     """Edit user's account."""
     if not g.user:
         flash("Access unauthorized.", 'danger')
@@ -141,7 +141,21 @@ def edit_user_account(user_id):
         flash("Wrong password, please try again!!", 'danger')
 
     return render_template('users/edit.html', user_id=user.id, form=form)
-    
+
+
+@app.route('/account/delete', methods=["POST"])
+def delete_user():
+    """Delete user."""
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect('/')
+
+    do_logout()
+
+    db.session.delete(g.user)
+    db.session.commit()
+
+    return redirect('/')
 
 
 ## APPLICATION MAIN PAGES
