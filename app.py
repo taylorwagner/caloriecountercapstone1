@@ -59,7 +59,7 @@ def signup():
 
         do_login(user)
 
-        return render_template("profiles/show.html", user=user)
+        return redirect(f"/profile/{user.id}")
 
     else:
         return render_template("users/signup.html", form=form)
