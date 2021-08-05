@@ -38,7 +38,7 @@ class User(db.Model):
 
     following = db.relationship("User", secondary="follows", primaryjoin=(Follows.user_following_id == id), secondaryjoin=(Follows.user_followed_id == id))
 
-    followers = db.relationship("User", secondary="follows", primaryjoin=(Follows.user_followed_id == id), secondaryjoin=(Follows.user_following_id == id))
+    followers = db.relationship("User", secondary="follows", primaryjoin=(Follows.user_followed_id == id), secondaryjoin=(Follows.user_following_id == id), overlaps="following")
 
     groups = db.relationship("Group", secondary="users_groups", backref="users")
 
