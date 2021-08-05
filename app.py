@@ -46,23 +46,24 @@ def signup():
     """Handle user signup. Create new user and add to DB. Redirect to homepage. If the form is not valid, present form. If the username or email is not unique, flash message and reload the form."""
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
-    form = UserAddForm()
+    user_form = UserAddForm()
+    profile_form = UserProfileForm()
 
-    if form.validate_on_submit():
+    if user_form.validate_on_submit():
         try:
-            user = User.signup(username=form.username.data, password=form.password.data, email=form.password.data, goal_cal=form.goal_cal.data)
+            user = User.signup(username=user_form.username.data, password=user_form.password.data, email=user_form.password.data, goal_cal=user_form.goal_cal.data)
             db.session.commit()
 
         except IntegrityError as e:
             flash("Username or E-mail aldready taken.", 'danger')
-            return render_template("users/signup.html", form=form)
+            return render_template("users/signup.html", form=user_form)
 
         do_login(user)
 
-        return render_template("profiles/create.html")
+        return render_template("profiles/create.html", form=profile_form, user=user)
 
     else:
-        return render_template("users/signup.html", form=form)
+        return render_template("users/signup.html", form=user_form)
 
     
 @app.route('/login', methods=["GET", "POST"])
