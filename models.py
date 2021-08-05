@@ -8,7 +8,7 @@ bcrypt = Bcrypt()
 db = SQLAlchemy()
 
 
-class Follow(db.Model):
+class Follows(db.Model):
     """Connection of a follower <-> followed_user."""
 
     __tablename__ = "follows"
@@ -18,7 +18,7 @@ class Follow(db.Model):
 
     def __repr__(self):
         """Human readable representation of follow table data."""
-        return f"<Follow: user_following_id={self.user_following_id}, user_followed_id={self.user_followed_id}>"
+        return f"<Follows: user_following_id={self.user_following_id}, user_followed_id={self.user_followed_id}>"
 
 
 class User(db.Model):
@@ -36,9 +36,9 @@ class User(db.Model):
 
     profiles = db.relationship('Profile', backref="user", cascade="all, delete-orphan")
 
-    following = db.relationship("User", secondary="follows", primaryjoin=(Follow.user_following_id == id), secondaryjoin=(Follow.user_followed_id == id))
+    following = db.relationship("User", secondary="follows", primaryjoin=(Follows.user_following_id == id), secondaryjoin=(Follows.user_followed_id == id))
 
-    followers = db.relationship("User", secondary="follows", primaryjoin=(Follow.user_followed_id == id), secondaryjoin=(Follow.user_following_id == id))
+    followers = db.relationship("User", secondary="follows", primaryjoin=(Follows.user_followed_id == id), secondaryjoin=(Follows.user_following_id == id))
 
     groups = db.relationship("Group", secondary="users_groups", backref="users")
 

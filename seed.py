@@ -1,5 +1,5 @@
 """Seed file to make sample data for calcountdb."""
-from models import db, User, Profile, Group, UserGroup, Follow, Comment
+from models import db, User, Profile, Group, UserGroup, Follows, Comment
 from app import app
 
 # Create all tables
@@ -11,7 +11,7 @@ User.query.delete()
 Profile.query.delete()
 Group.query.delete()
 UserGroup.query.delete()
-Follow.query.delete()
+Follows.query.delete()
 Comment.query.delete()
 
 # Add sample users
@@ -63,10 +63,10 @@ db.session.add_all([ug1, ug2, ug3, ug4])
 db.session.commit()
 
 # Add sample follows
-f1 = Follow(user_following_id=553131, user_followed_id=771010)
-f2 = Follow(user_following_id=771010, user_followed_id=553131)
-f3 = Follow(user_following_id=771010, user_followed_id=660101)
-f4 = Follow(user_following_id=440202, user_followed_id=660101)
+f1 = Follows(user_following_id=553131, user_followed_id=771010)
+f2 = Follows(user_following_id=771010, user_followed_id=553131)
+f3 = Follows(user_following_id=771010, user_followed_id=660101)
+f4 = Follows(user_following_id=440202, user_followed_id=660101)
 
 # Add new objects to session, so they'll persist
 db.session.add_all([f1, f2, f3, f4])
