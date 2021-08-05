@@ -92,15 +92,7 @@ def logout():
     return redirect('/')
 
 
-## PROFILE PAGES
-
-
-@app.route('/profile/<int:user_id>')
-def show_profile(user_id):
-    """Show profile page for user."""
-    user = User.query.get_or_404(user_id)
-
-    return render_template("users/show.html", user=user)
+## ACCOUNT ROUTES
 
 
 @app.route('/account/<int:user_id>')
@@ -144,7 +136,7 @@ def edit_account(user_id):
 
 
 @app.route('/account/delete', methods=["POST"])
-def delete_user():
+def delete_account():
     """Delete user."""
     if not g.user:
         flash("Access unauthorized.", 'danger')
@@ -158,7 +150,25 @@ def delete_user():
     return redirect('/')
 
 
-## APPLICATION MAIN PAGES
+## GROUP ROUTES
+
+
+@app.route('/groups')
+def show_groups():
+    """Show all groups."""
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect('/')
+        
+    groups = Group.query.all()
+
+    return render_template('groups/groups.html', groups=groups)
+
+
+## COMMENT ROUTES
+
+
+## APPLICATION MAIN ROUTES
 
 
 @app.route('/')
@@ -171,6 +181,14 @@ def homepage():
 def about_page():
     """Application about page. Inform user's about application."""
     return render_template('about.html')
+
+
+@app.route('/profile/<int:user_id>')
+def show_profile(user_id):
+    """Show profile page for user."""
+    user = User.query.get_or_404(user_id)
+
+    return render_template("users/show.html", user=user)
 
 
 # Turn off all caching in Flask
