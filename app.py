@@ -154,15 +154,48 @@ def delete_account():
 
 
 @app.route('/groups')
-def show_groups():
+def all_groups():
     """Show all groups."""
     if not g.user:
         flash("Access unauthorized.", 'danger')
         return redirect('/')
-        
+
     groups = Group.query.all()
 
     return render_template('groups/groups.html', groups=groups)
+
+
+@app.route('/groups/new', methods=["GET", "POST"])
+def new_group():
+    """Create a new group."""
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect('/')
+
+    form = GroupForm()
+
+    if form.validate_on_submit():
+        group = Group(name=form.name.data, description=form.description.data)
+
+        db.session.add(group)
+        db.session.commit()
+
+        flash(f"{group.name} has been added as a support group!", 'success')
+        return redirect('/groups')
+
+    return render_template('groups/new.html', form=form)
+
+
+@app.route('/groups/<int:group_id>')
+def show_group(group_id):
+    """Show group description and users in group."""
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect('/')
+
+    group = Group.query.get_or_404(group_id)
+
+    return render_template('groups/show.html', group=group)
 
 
 ## COMMENT ROUTES

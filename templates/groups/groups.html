@@ -5,9 +5,10 @@
 <div class="container">
     <h1 class="h1">Support Groups</h1>
     <h3 class="h3">At Calorie Counter, users join groups to find support from likeminded people in their health and lifestyle journey. Select a group name to learn more or even join the group.</h3>
+    <a href="/groups/new" class="btn btn-primary">Start a Group</a>
     <ul>
         {% for g in groups %}
-        <li><a href="">{{ g.name }}</a></li>
+        <li><a href="/groups/{{ g.id }}">{{ g.name }}</a></li>
         {% endfor %}
     </ul>
 </div>

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="h1">Create a Support Group at Calorie Counter</h1>
+    <p>Please start the name of the group with a hashtag (#)!</p>
+    <form method="POST" id="group_form">
+        {{ form.hidden_tag() }}
+
+        {% for field in form if field.widget.input_type != 'hidden' %}
+
+            <p>
+                {{ field.label(class_="form-label") }}
+                {{ field(class_="form-control") }}
+            
+                {% for error in field.errors %}
+                <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </p>
+        {% endfor %}
+
+        <button class="btn btn-primary">Submit</button>
+        <a href="/groups" class="btn btn-success">Cancel</a>
+    </form>
+</div>
+
+{% endblock %}
