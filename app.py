@@ -76,7 +76,7 @@ def login():
         if user:
             do_login(user)
             flash(f"Hello, {user.username}! Welcome to Calorie Counter!", 'success')
-            return redirect(f"/profile/{user.user_id}")
+            return redirect(f"/profile/{user.id}")
 
         flash("Invalid credentials!", 'danger')
 
