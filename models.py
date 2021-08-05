@@ -1,6 +1,5 @@
 """SQLAlchemy models for Calorie Counter."""
 
-import datetime
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 
@@ -33,8 +32,6 @@ class User(db.Model):
     goal_cal = db.Column(db.Integer, nullable=False)
     city = db.Column(db.String(30), nullable=False)
     state = db.Column(db.String(2), nullable=False)
-
-    comments = db.relationship('Comment', backref="user", cascade="all, delete-orphan")
 
     following = db.relationship("User", secondary="follows", primaryjoin=(Follows.user_following_id == id), secondaryjoin=(Follows.user_followed_id == id))
 
@@ -95,25 +92,6 @@ class UserGroup(db.Model):
         """Human readable representation of user_group table data."""
         return f"<UserGroup: group_id={self.group_id} user_id={self.user_id}>"
 
-
-class Comment(db.Model):
-    """Users can leave comments for themselves, users he/she follows, and groups he/she is in."""
-
-    __tablename__ = "comments"
-
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="cascade"))
-    text = db.Column(db.Text, nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
-
-    @property
-    def readable_date(self):
-        """Return formatted date."""
-        return self.created_at.strftime("%a %b %-d  %Y, %-I:%M %p")
-
-    def __repr__(self):
-        """Human readable representation of user table data."""
-        return f"<Comment: id={self.id} text={self.text} timestamp={self.created_at}>"
 
 def connect_db(app):
     """Connect this database to provided Flask app."""

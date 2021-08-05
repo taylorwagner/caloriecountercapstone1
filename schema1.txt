@@ -25,12 +25,6 @@ Table users_groups {
   user_id int [fk]
 }
 
-Table comments {
-  id int [pk, increment]
-  user_id int [fk]
-  text string [not null]
-  created_at datetime [not null]
-}
 
 ## RELATIONSHIPS
 
@@ -41,5 +35,3 @@ Ref: "groups"."id" < "users_groups"."group_id"
 Ref: "users"."id" < "follows"."user_followed_id"
 
 Ref: "users"."id" < "follows"."user_following_id"
-
-Ref: "users"."id" < "comments"."user_id"

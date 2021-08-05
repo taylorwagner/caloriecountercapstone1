@@ -1,7 +1,7 @@
 """Flask-WTForms for Calorie Counter app."""
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, TextAreaField, SelectField
+from wtforms import StringField, PasswordField, SelectField
 from wtforms.fields.core import DateField, IntegerField
 from wtforms.validators import InputRequired, Length, Optional
 
@@ -35,12 +35,6 @@ class GroupForm(FlaskForm):
 
     name = StringField('Name of Group', validators=[InputRequired(message="Must include a comment.")])
     description = StringField('Description of Group', validators=[Optional()])
-
-
-class CommentForm(FlaskForm):
-    """Form for adding/editing comments."""
-
-    text = TextAreaField('Comment', validators=[InputRequired(message="Must include a comment.")])
 
 
 class FoodForm(FlaskForm):

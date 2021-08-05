@@ -2,8 +2,8 @@
 
 from flask import Flask, session, g, request, render_template, redirect, flash
 from sqlalchemy.exc import IntegrityError
-from forms import UserForm, LoginForm, GroupForm, CommentForm, FoodForm, ExerciseForm, DeleteForm
-from models import db, connect_db, User, Group, UserGroup, Follows, Comment
+from forms import UserForm, LoginForm, GroupForm, FoodForm, ExerciseForm, DeleteForm
+from models import db, connect_db, User, Group, UserGroup, Follows
 
 CURR_USER_KEY = "curr_user"
 
