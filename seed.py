@@ -21,7 +21,7 @@ u3 = User(id=660101, username="meglporter", password="testpwpw", email="fake@ema
 u4 = User(id=440202, username="pauliefbaby", password="samplepassword", email="sports@nfl.com", goal_cal=3000)
 
 # Add new objects to sesion, so they'll persist
-db.session.add.all([u1, u2, u3, u4])
+db.session.add_all([u1, u2, u3, u4])
 
 # Commit
 db.session.commit()
@@ -33,7 +33,7 @@ p3 = Profile(user_id=660101, first_name="Megan", city="Crockett", state="TX", ge
 p4 = Profile(user_id=440202, first_name="Paul", last_name="Stewart", city="Los Angeles", state="CA", gender=False)
 
 # Add new objects to sesion, so they'll persist
-db.session.add.all([p1, p2, p3, p4])
+db.session.add_all([p1, p2, p3, p4])
 
 # Commit
 db.session.commit()
@@ -45,7 +45,7 @@ g3 = Group(id=9999, name="#classof99")
 g4 = Group(id=9888, name="#healthnewbies")
 
 # Add new objects to session, so they'll persist
-db.session.add.all([g1, g2, g3, g4])
+db.session.add_all([g1, g2, g3, g4])
 
 # Commit
 db.session.commit()
@@ -57,7 +57,7 @@ ug3 = UserGroup(group_id=9998, user_id=553131)
 ug4 = UserGroup(group_id=9999, user_id=771010)
 
 # Add new objects to session, so they'll persist
-db.session.add.all([ug1, ug2, ug3, ug4])
+db.session.add_all([ug1, ug2, ug3, ug4])
 
 # Commit
 db.session.commit()
@@ -69,7 +69,7 @@ f3 = Follow(user_following_id=771010, user_followed_id=660101)
 f4 = Follow(user_following_id=440202, user_followed_id=660101)
 
 # Add new objects to session, so they'll persist
-db.session.add.all([f1, f2, f3, f4])
+db.session.add_all([f1, f2, f3, f4])
 
 # Commit
 db.session.commit()
@@ -79,7 +79,7 @@ c1 = Comment(user_id=553131, text="Working hard this week!")
 c2 = Comment(user_id=553131, text="Texas here!")
 
 # Add new objects to session, so they'll persist
-db.session.add.all([c1, c2])
+db.session.add_all([c1, c2])
 
 # Commit
 db.session.commit()
