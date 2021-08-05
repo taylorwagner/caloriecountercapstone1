@@ -2,7 +2,7 @@
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, TextAreaField, SelectField
-from wtforms.fields.core import BooleanField, DateField, IntegerField
+from wtforms.fields.core import DateField, IntegerField
 from wtforms.validators import InputRequired, Length, Optional
 
 STATE_ABBREV = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 
@@ -19,6 +19,8 @@ class UserAddForm(FlaskForm):
     password = PasswordField('Password', validators=[InputRequired(message="Must create a password with a minimum of 8 characters."), Length(min=8)])
     email = StringField('E-mail', validators=[InputRequired(message="Unique e-mail address is required.")])
     goal_cal = IntegerField("Daily Caloric Goal", validators=[InputRequired(message="Must include a daily caloric goal to sign-up. May change goal later.")])
+    city = StringField('City', validators=[InputRequired(message="City is required.")])
+    state = SelectField('State', choices=[(state, state) for state in STATE_ABBREV], validators=[InputRequired(message="State is required.")])
 
 
 class LoginForm(FlaskForm):
@@ -26,18 +28,6 @@ class LoginForm(FlaskForm):
 
     username = StringField('Username', validators=[InputRequired(message="Unique username is required."), Length(max=25)])
     password = PasswordField('Password', validators=[InputRequired(message="Must create a password with a minimum of 8 characters."), Length(min=8)])
-
-
-class UserProfileForm(FlaskForm):
-    """Form for creating/editing user's profile information."""
-
-    first_name = StringField('First Name', validators=[Optional()])
-    last_name = StringField('Last Name', validators=[Optional()])
-    city = StringField('City', validators=[Optional()])
-    state = SelectField('State', choices=[(state, state) for state in STATE_ABBREV], validators=[Optional()])
-    gender = BooleanField('Male/Female', validators=[Optional()])
-    dob = DateField('Date of Birth', validators=[Optional()])
-    reason = TextAreaField('Reason(s) for Joining Calorie Counter', validators=[Optional()])
 
 
 class UserCalEditForm(FlaskForm):

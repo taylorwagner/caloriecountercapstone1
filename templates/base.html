@@ -37,15 +37,13 @@
             </li>
             {% else %}
             <li class="nav-item">
-                <a class="nav-link" href="/profile/{{ g.user.id }}">Profile</a>
-              </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="/profile/{{ g.user.id }}/details">Details</a>
-                <a class="dropdown-item" href="#">Groups</a>
-                <a class="dropdown-item" href="/logout">Logout</a>
-              </div>
+                <a class="nav-link" href="#">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Groups</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
             </li>
             {% endif %}
           </ul>

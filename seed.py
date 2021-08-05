@@ -1,5 +1,5 @@
 """Seed file to make sample data for calcountdb."""
-from models import db, User, Profile, Group, UserGroup, Follows, Comment
+from models import db, User, Group, UserGroup, Follows, Comment
 from app import app
 
 # Create all tables
@@ -8,40 +8,27 @@ db.create_all()
 
 # If tables aren't empty, empty them
 User.query.delete()
-Profile.query.delete()
 Group.query.delete()
 UserGroup.query.delete()
 Follows.query.delete()
 Comment.query.delete()
 
 # Add sample users
-fake_u1 = User.signup(username="sanrpor", password="password", email="sanrpor@test.com", goal_cal=1800)
+fake_u1 = User.signup(username="sanrpor", password="password", email="sanrpor@test.com", goal_cal=1800, city="Houston", state="TX")
 fake_u1id = 553131
 fake_u1.id = fake_u1id
-fake_u2 = User.signup(username="leopeezy3", password="testpassword", email="lpp@gmail.com", goal_cal=1300)
+fake_u2 = User.signup(username="leopeezy3", password="testpassword", email="lpp@gmail.com", goal_cal=1300, city="Lincoln", state="NE")
 fake_u2id = 771010
 fake_u2.id = fake_u2id
-fake_u3 = User.signup(username="meglporter", password="testpwpw", email="fake@email.com", goal_cal=1000)
+fake_u3 = User.signup(username="meglporter", password="testpwpw", email="fake@email.com", goal_cal=1000, city="Phoenix", state="AZ")
 fake_u3id = 660101
 fake_u3.id = fake_u3id
-fake_u4 = User.signup(username="pauliefbaby", password="samplepassword", email="sports@nfl.com", goal_cal=3000)
+fake_u4 = User.signup(username="pauliefbaby", password="samplepassword", email="sports@nfl.com", goal_cal=3000, city="Austin", state="TX")
 fake_u4id = 440202
 fake_u4.id = fake_u4id
 
 # Add new objects to sesion, so they'll persist
 db.session.add_all([fake_u1, fake_u2, fake_u3, fake_u4])
-
-# Commit
-db.session.commit()
-
-# Add sample profiles
-fake_p1 = Profile(user_id=553131, first_name="Santana", last_name="Porter", city="Houston", state="TX", gender=False, reason="Meet people on a health journey and share my process with others")
-fake_p2 = Profile(user_id=771010)
-fake_p3 = Profile(user_id=660101, first_name="Megan", city="Crockett", state="TX", gender=True)
-fake_p4 = Profile(user_id=440202, first_name="Paul", last_name="Stewart", city="Los Angeles", state="CA", gender=False)
-
-# Add new objects to sesion, so they'll persist
-db.session.add_all([fake_p1, fake_p2, fake_p3, fake_p4])
 
 # Commit
 db.session.commit()

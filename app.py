@@ -2,8 +2,8 @@
 
 from flask import Flask, session, g, request, render_template, redirect, flash
 from sqlalchemy.exc import IntegrityError
-from forms import UserAddForm, LoginForm, UserProfileForm, UserCalEditForm, GroupForm, CommentForm, FoodForm, ExerciseForm
-from models import db, connect_db, User, Profile, Group, UserGroup, Follows, Comment
+from forms import UserAddForm, LoginForm, UserCalEditForm, GroupForm, CommentForm, FoodForm, ExerciseForm
+from models import db, connect_db, User, Group, UserGroup, Follows, Comment
 
 CURR_USER_KEY = "curr_user"
 
@@ -46,24 +46,23 @@ def signup():
     """Handle user signup. Create new user and add to DB. Redirect to homepage. If the form is not valid, present form. If the username or email is not unique, flash message and reload the form."""
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
-    user_form = UserAddForm()
-    profile_form = UserProfileForm()
+    form = UserAddForm()
 
-    if user_form.validate_on_submit():
+    if form.validate_on_submit():
         try:
-            user = User.signup(username=user_form.username.data, password=user_form.password.data, email=user_form.password.data, goal_cal=user_form.goal_cal.data)
+            user = User.signup(username=form.username.data, password=form.password.data, email=form.password.data, goal_cal=form.goal_cal.data)
             db.session.commit()
 
         except IntegrityError as e:
             flash("Username or E-mail aldready taken.", 'danger')
-            return render_template("users/signup.html", form=user_form)
+            return render_template("users/signup.html", form=form)
 
         do_login(user)
 
-        return render_template("profiles/create.html", form=profile_form, user=user)
+        return render_template("profiles/show.html", user=user)
 
     else:
-        return render_template("users/signup.html", form=user_form)
+        return render_template("users/signup.html", form=form)
 
     
 @app.route('/login', methods=["GET", "POST"])
@@ -91,66 +90,6 @@ def logout():
     flash("Successfully logged out.", 'success')
 
     return redirect('/')
-
-
-## PROFILE ROUTES
-
-
-@app.route('/profile', methods=["GET", "POST"])
-def create_profile(user_id):
-    """After initial sign up, offer user a chance to add profile details to account."""
-    if not g.user:
-        flash("Access unauthorized.", 'danger')
-        return redirect('/')
-
-    user = User.query.get_or_404(user_id)
-    form = UserProfileForm()
-
-    if form.validate_on_submit():
-        p = Profile(user_id=user.id, first_name=form.first_name.data, last_name=form.last_name.data, city=form.city.data, state=form.state.data, gender=form.gender.data, dob=form.dob.data, reason=form.reason.data)
-
-        db.session.add(p)
-        db.session.commit()
-
-        flash(f"Successfully created a profile for {user.username}!", 'success')
-        return redirect(f"/profile/{user.id}")
-
-    return render_template('profiles/create.html', user_id=user.id, form=form)
-
-
-@app.route('/profile/<int:user_id>')
-def show_user_profile(user_id):
-    """Show profile of user."""
-    user = User.query.get_or_404(user_id)
-
-    return render_template('profiles/show.html', user=user)
-
-
-@app.route('/profile/<int:user_id>/details')
-def show_user_profile_details(user_id):
-    """Show profile details of user."""
-    if not g.user:
-        flash("Access unauthorized.", 'danger')
-        return redirect('/')
-
-    profile = Profile.query.get_or_404(user_id)
-
-    return render_template('profiles/detail.html', profile=profile)
-
-
-@app.route('/profile/<int:user_id>/details/delete', methods=["POST"])
-def delete_profile(user_id):
-    """Delete profile details of user."""
-    if not g.user:
-        flash("Access unauthorized.", 'danger')
-        return redirect("/")
-
-    user = User.query.get_or_404(user_id)
-
-    db.session.delete(f"{user.profile.id}")
-    db.session.commit()
-
-    return redirect(f"/profile/{user.id}")
 
 
 ## APPLICATION MAIN PAGES

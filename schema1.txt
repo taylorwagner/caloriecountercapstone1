@@ -4,17 +4,8 @@ Table users {
   password string [not null]
   email email [not null, unique]
   goal_cal int [not null]
-}
-
-Table profiles {
-  user_id int [pk, fk]
-  first_name string
-  last_name string
-  city string
-  state string
-  gender choice
-  dob date
-  reason text
+  city string [not null]
+  state string [not null]
 }
 
 Table groups {
@@ -42,8 +33,6 @@ Table comments {
 }
 
 ## RELATIONSHIPS
-
-Ref: "users"."id" < "profiles"."user_id"
 
 Ref: "users"."id" < "users_groups"."user_id"
 

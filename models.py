@@ -31,10 +31,10 @@ class User(db.Model):
     password = db.Column(db.String(), nullable=False)
     email = db.Column(db.Text, nullable=False, unique=True)
     goal_cal = db.Column(db.Integer, nullable=False)
+    city = db.Column(db.String(30), nullable=False)
+    state = db.Column(db.String(2), nullable=False)
 
     comments = db.relationship('Comment', backref="user", cascade="all, delete-orphan")
-
-    profiles = db.relationship('Profile', backref="user", cascade="all, delete-orphan")
 
     following = db.relationship("User", secondary="follows", primaryjoin=(Follows.user_following_id == id), secondaryjoin=(Follows.user_followed_id == id))
 
@@ -44,14 +44,14 @@ class User(db.Model):
 
     def __repr__(self):
         """Human readable representation of user table data."""
-        return f"<User #{self.id}: {self.username}, {self.email}, goal_calories={self.goal_cal}>"
+        return f"<User #{self.id}: {self.username}, {self.email}, goal_calories={self.goal_cal} city={self.city} state={self.state}>"
 
     @classmethod
-    def signup(cls, username, password, email, goal_cal):
+    def signup(cls, username, password, email, goal_cal, city, state):
         """Sign up a user. Hashes password and adds user to the system."""
         hashed_pw = bcrypt.generate_password_hash(password).decode('UTF-8')
 
-        user = User(username=username, password=hashed_pw, email=email, goal_cal=goal_cal)
+        user = User(username=username, password=hashed_pw, email=email, goal_cal=goal_cal, city=city, state=state)
 
         db.session.add(user)
         return user
@@ -67,24 +67,6 @@ class User(db.Model):
 
         return False
 
-
-class Profile(db.Model):
-    """A user's profile information."""
-
-    __tablename__ = "profiles"
-
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="cascade"), primary_key=True)
-    first_name = db.Column(db.String(30))
-    last_name = db.Column(db.String(30))
-    city = db.Column(db.String(30))
-    state = db.Column(db.String(2))
-    gender = db.Column(db.Boolean)
-    # dob = db.Column(db.DateTime, default=datetime.date())
-    reason = db.Column(db.Text)
-
-    # def __repr__(self):
-    #     """Human readable representation of profile table data."""
-    #     return f"<Profile: user={self.user_id} name={self.first_name} {self.last_name} location={self.city}, {self.state} gender={self.gender} dob={self.dob} reason='{self.reason}'>"
 
 class Group(db.Model):
     """Support groups for users to join"""
