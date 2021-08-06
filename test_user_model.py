@@ -115,3 +115,11 @@ class UserModelTestCase(TestCase):
 
         with self.assertRaises(ValueError) as context:
             User.signup("forgotpwfield", None, "pw@forgot.com", 1234, "No", "CA")
+
+# AUTHENTICATION TESTS
+
+    def test_valid_authentication(self):
+        """Does User.authenticate successfully return a user when given a valid username and password?"""
+        noauth = User.authenticate(self.testuser1.username, "password")
+        self.assertIsNotNone(noauth)
+        self.assertEqual(noauth.id, self.testuser1id)
