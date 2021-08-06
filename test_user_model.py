@@ -123,3 +123,31 @@ class UserModelTestCase(TestCase):
         noauth = User.authenticate(self.testuser1.username, "password")
         self.assertIsNotNone(noauth)
         self.assertEqual(noauth.id, self.testuser1id)
+
+# FOLLOW TESTS
+
+    def test_is_following(self):
+        """Does is_following successfully detect when one user is following another user?"""
+        self.testuser1.following.append(self.testuser2)
+        db.session.commit()
+
+        self.assertEqual(len(self.testuser2.following), 0)
+        self.assertEqual(len(self.testuser1.following), 1)
+
+        self.assertEqual(self.testuser1.following[0].id, self.testuser2.id)
+
+        self.assertTrue(self.testuser1.is_following(self.testuser2))
+        self.assertFalse(self.testuser2.is_following(self.testuser1))
+
+    def test_is_followed_by(self):
+        """Does is_followed_by successfully detect when one user is being followed by another user?"""
+        self.testuser1.following.append(self.testuser2)
+        db.session.commit()
+
+        self.assertEqual(len(self.testuser2.followers), 1)
+        self.assertEqual(len(self.testuser1.followers), 0)
+
+        self.assertEqual(self.testuser2.followers[0].id, self.testuser1.id)
+
+        self.assertTrue(self.testuser2.is_followed_by(self.testuser1))
+        self.assertFalse(self.testuser1.is_followed_by(self.testuser2))

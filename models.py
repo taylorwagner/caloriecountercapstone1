@@ -43,6 +43,18 @@ class User(db.Model):
         """Human readable representation of user table data."""
         return f"<User #{self.id}: {self.username}, {self.email}, goal_calories={self.goal_cal} city={self.city} state={self.state}>"
 
+    def is_following(self, other_user):
+        """Is this user following `other_use`?"""
+
+        found_user_list = [user for user in self.following if user == other_user]
+        return len(found_user_list) == 1
+
+    def is_followed_by(self, other_user):
+        """Is this user followed by `other_user`?"""
+
+        found_user_list = [user for user in self.followers if user == other_user]
+        return len(found_user_list) == 1
+
     @classmethod
     def signup(cls, username, password, email, goal_cal, city, state):
         """Sign up a user. Hashes password and adds user to the system."""
