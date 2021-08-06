@@ -107,3 +107,11 @@ class UserModelTestCase(TestCase):
         nocity.id = nocityid
         with self.assertRaises(exc.IntegrityError) as context:
             db.session.commit()
+
+    def test_invalid_password_signup(self):
+        """Test that a new user will not register if the password field is missing."""
+        with self.assertRaises(ValueError) as context:
+            User.signup("emptypw", "", "nopw@password.com", 1300, "Yes", "OK")
+
+        with self.assertRaises(ValueError) as context:
+            User.signup("forgotpwfield", None, "pw@forgot.com", 1234, "No", "CA")
