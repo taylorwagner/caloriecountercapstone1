@@ -44,8 +44,10 @@ class GroupModelTestCase(TestCase):
         db.session.add_all([testgroup, testgroup2])
         db.session.commit()
 
-
+        self.assertIsNotNone(testgroup)
         self.assertEqual(testgroup.name, "#farmers")
         self.assertEqual(testgroup.description, "For people who live on the farm or love to farm!")
+
+        self.assertIsNotNone(testgroup2)
         self.assertEqual(testgroup2.name, "#nodescription")
         self.assertIsNone(testgroup2.description, None)
