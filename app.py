@@ -150,6 +150,31 @@ def delete_account():
     return redirect('/')
 
 
+## FOLLOW ROUTES
+
+
+@app.route('/account/<int:user_id>/following')
+def show_following(user_id):
+    """Show list of people that this user is following."""
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect('/')
+
+    user = User.query.get_or_404(user_id)
+    return render_template('follows/following.html', user=user)
+
+
+@app.route('/account/<int:user_id>/followers')
+def show_followers(user_id):
+    """Show list of followers of this user."""
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect('/')
+
+    user = User.query.get_or_404(user_id)
+    return render_template('follows/followers.html', user=user)
+
+
 ## GROUP ROUTES
 
 
@@ -196,9 +221,6 @@ def show_group(group_id):
     group = Group.query.get_or_404(group_id)
 
     return render_template('groups/show.html', group=group)
-
-
-## COMMENT ROUTES
 
 
 ## APPLICATION MAIN ROUTES
