@@ -8,7 +8,7 @@
     {% if user.following %}
     {% for followed_user in user.following %}
     <ul>
-        <li><a href="/profile/{{ followed_user.id }}"></a>{{ followed_user.username }} 
+        <li><a href="/profile/{{ followed_user.id }}">{{ followed_user.username }}</a> 
             {% if g.user.is_following(followed_user) %}
             <form method="POST" action="/account/stop-following/{{ followed_user.id }}">
               <button class="btn btn-primary btn-sm">Unfollow</button>

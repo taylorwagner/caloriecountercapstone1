@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="h1">People {{ user.username }} is FOLLOWED by</h1>
+
+    {% if user.followers %}
+    {% for follower in user.followers %}
+    <ul>
+        <li><a href="/profile/{{ follower.id }}">{{ follower.username }}</a> 
+            {% if g.user.is_following(follower) %}
+            <form method="POST" action="/account/stop-following/{{ follower.id }}">
+              <button class="btn btn-primary btn-sm">Unfollow</button>
+            </form>
+            {% else %}
+            <form method="POST" action="/account/follow/{{ follower.id }}">
+              <button class="btn btn-outline-primary btn-sm">Follow</button>
+            </form>
+          {% endif %}
+        </li>
+    </ul>
+    {% endfor %}
+    {% else %}
+    <p>{{ user.username }} is not being followed by anyone yet!</p>
+    {% endif %}
+
+    <a href="/profile/{{ user.id }}" class="btn btn-success">Back to Profile</a>
+</div>
+
+{% endblock %}
