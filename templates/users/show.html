@@ -7,7 +7,7 @@
     <h2 class="h2">Daily Caloric Goal: {{ user.goal_cal }}</h2>
     <a href="" class="btn btn-primary">Follow</a>
     <ul>
-        <li><a href="">Groups</a></li>
+        <li><a href="/account/{{ user.id }}/groups">Groups</a></li>
         <li><a href="/account/{{ user.id}}/following">Following</a></li>
         <li><a href="/account/{{ user.id}}/followers">Followers</a></li>
         {% if g.user %}

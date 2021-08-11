@@ -135,6 +135,17 @@ def edit_account(user_id):
     return render_template('users/edit.html', user_id=user.id, form=form)
 
 
+@app.route('/account/<int:user_id>/groups')
+def show_user_groups(user_id):
+    """Show list of people that this user is following."""
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect('/')
+
+    user = User.query.get_or_404(user_id)
+    return render_template('groups/user-groups.html', user=user)
+
+
 @app.route('/account/delete', methods=["POST"])
 def delete_account():
     """Delete user."""
