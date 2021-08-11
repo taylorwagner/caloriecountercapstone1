@@ -8,8 +8,8 @@
     <a href="" class="btn btn-primary">Follow</a>
     <ul>
         <li><a href="">Groups</a></li>
-        <li><a href="">Following</a></li>
-        <li><a href="">Followers</a></li>
+        <li><a href="/account/{{ user.id}}/following">Following</a></li>
+        <li><a href="/account/{{ user.id}}/followers">Followers</a></li>
         {% if g.user %}
         <li><a href="/account/{{ user.id }}">Account</a></li>
         {% endif %}

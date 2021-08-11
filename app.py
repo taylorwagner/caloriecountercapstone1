@@ -175,6 +175,34 @@ def show_followers(user_id):
     return render_template('follows/followers.html', user=user)
 
 
+@app.route('/account/follow/<int:follow_id>', methods=['POST'])
+def add_follow(follow_id):
+    """Add a follow for the currently-logged-in user."""
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect("/")
+
+    followed_user = User.query.get_or_404(follow_id)
+    g.user.following.append(followed_user)
+    db.session.commit()
+
+    return redirect(f"/account/{g.user.id}/following")
+
+
+@app.route('/account/stop-following/<int:follow_id>', methods=['POST'])
+def stop_following(follow_id):
+    """Have currently-logged-in-user stop following this user."""
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect("/")
+
+    followed_user = User.query.get(follow_id)
+    g.user.following.remove(followed_user)
+    db.session.commit()
+
+    return redirect(f"/account/{g.user.id}/following")
+
+
 ## GROUP ROUTES
 
 
