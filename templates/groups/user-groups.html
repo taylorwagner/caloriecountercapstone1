@@ -2,6 +2,20 @@
 
 {% block content %}
 
-<h1>User-Groups</h1>
+<div class="container">
+    <h1 class="h1">Groups {{ user.username }} is in</h1>
+
+    {% if user.groups %}
+    {% for g in user.groups %}
+    <ul>
+        <li><a href="/groups/{{ g.id }}">{{ g.name }}</a></li>
+    </ul>
+    {% endfor %}
+    {% else %}
+    <p>{{ user.username }} is not in any groups yet!</p>
+    {% endif %}
+
+    <a href="/profile/{{ user.id }}" class="btn btn-success">Back to Profile</a>
+</div>
 
 {% endblock %}
