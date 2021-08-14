@@ -20,6 +20,28 @@ app.config['SECRET_KEY'] = "shh"
 connect_db(app)
 
 
+## NUTRITIONIX API
+def get_cal_for_food():
+    """Given a food, get a calorie number."""
+
+    res = requests.post(f"{NUTRITIONIX_API_BASE_URL}/nutrients", params={"x-app-Id": NUTRITIONIX_APP_ID, "x-app-Key": NUTRITIONIX_APP_KEY, "x-remote-user-id": 0})
+    data = res.json()
+    food = data["foods"][0]['food_name']
+    calories = data["foods"][0]['nf_calories']
+    food_cal = {'food': food, 'calories': calories}
+    return food_cal
+
+
+def get_cal_for_exercise():
+    """Given an exerise, get a calorie number."""
+
+    res = requests.post(f"{NUTRITIONIX_API_BASE_URL}/exercise", params={"x-app-Id": NUTRITIONIX_APP_ID, "x-app-Key": NUTRITIONIX_APP_KEY, "x-remote-user-id": 0})
+    data = res.json()
+    exercise = data["exercises"][0]['user_input']
+    calories = data["exercises"][0]['nf_calories']
+    exercise_cal = {'exercise': exercise, 'calories': calories}
+    return exercise_cal
+
 ## USER SIGNUP/LOGIN/LOGOUT
 
 
