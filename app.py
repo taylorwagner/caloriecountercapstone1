@@ -2,7 +2,7 @@
 
 import requests
 from flask import Flask, session, g, request, render_template, redirect, flash, jsonify
-from secrets import NUTRITIONIX_APP_ID, NUTRITIONIX_APP_KEY
+from secrets import api_id, api_key
 from sqlalchemy.exc import IntegrityError
 from forms import UserForm, LoginForm, GroupForm, FoodForm, ExerciseForm, DeleteForm
 from models import db, connect_db, User, Group, UserGroup, Follows
@@ -24,7 +24,7 @@ connect_db(app)
 def get_cal_for_food(user_food):
     """Given a food, get a calorie number."""
 
-    res = requests.post(f"{NUTRITIONIX_API_BASE_URL}/nutrients", headers={"x-app-Id": NUTRITIONIX_APP_ID, "x-app-Key": NUTRITIONIX_APP_KEY, "x-remote-user-id": 0}, body={"query": user_food})
+    res = requests.post(f"{NUTRITIONIX_API_BASE_URL}/nutrients", headers={"x-app-Id": api_id, "x-app-Key": api_key, "x-remote-user-id": 0}, body={"query": user_food})
     data = res.json()
     food = data["foods"][0]['food_name']
     calories = data["foods"][0]['nf_calories']
@@ -35,7 +35,7 @@ def get_cal_for_food(user_food):
 def get_cal_for_exercise(user_exercise):
     """Given an exerise, get a calorie number."""
 
-    res = requests.post(f"{NUTRITIONIX_API_BASE_URL}/exercise", headers={"x-app-Id": NUTRITIONIX_APP_ID, "x-app-Key": NUTRITIONIX_APP_KEY, "x-remote-user-id": 0}, body={"query": user_exercise})
+    res = requests.post(f"{NUTRITIONIX_API_BASE_URL}/exercise", headers={"x-app-Id": api_id, "x-app-Key": api_key, "x-remote-user-id": 0}, body={"query": user_exercise})
     data = res.json()
     exercise = data["exercises"][0]['user_input']
     calories = data["exercises"][0]['nf_calories']
