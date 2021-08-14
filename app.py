@@ -1,6 +1,6 @@
 """Calorie Counter Flask App."""
 
-from flask import Flask, session, g, request, render_template, redirect, flash
+from flask import Flask, session, g, request, render_template, redirect, flash, jsonify
 import requests
 from secrets import NUTRITIONIX_APP_ID, NUTRITIONIX_APP_KEY
 from sqlalchemy.exc import IntegrityError
@@ -21,10 +21,10 @@ connect_db(app)
 
 
 ## NUTRITIONIX API
-def get_cal_for_food():
+def get_cal_for_food(user_food):
     """Given a food, get a calorie number."""
 
-    res = requests.post(f"{NUTRITIONIX_API_BASE_URL}/nutrients", params={"x-app-Id": NUTRITIONIX_APP_ID, "x-app-Key": NUTRITIONIX_APP_KEY, "x-remote-user-id": 0})
+    res = requests.post(f"{NUTRITIONIX_API_BASE_URL}/nutrients", headers={"x-app-Id": NUTRITIONIX_APP_ID, "x-app-Key": NUTRITIONIX_APP_KEY, "x-remote-user-id": 0}, body={"query": user_food})
     data = res.json()
     food = data["foods"][0]['food_name']
     calories = data["foods"][0]['nf_calories']
@@ -32,15 +32,52 @@ def get_cal_for_food():
     return food_cal
 
 
-def get_cal_for_exercise():
+def get_cal_for_exercise(user_exercise):
     """Given an exerise, get a calorie number."""
 
-    res = requests.post(f"{NUTRITIONIX_API_BASE_URL}/exercise", params={"x-app-Id": NUTRITIONIX_APP_ID, "x-app-Key": NUTRITIONIX_APP_KEY, "x-remote-user-id": 0})
+    res = requests.post(f"{NUTRITIONIX_API_BASE_URL}/exercise", headers={"x-app-Id": NUTRITIONIX_APP_ID, "x-app-Key": NUTRITIONIX_APP_KEY, "x-remote-user-id": 0}, body={"query": user_exercise})
     data = res.json()
     exercise = data["exercises"][0]['user_input']
     calories = data["exercises"][0]['nf_calories']
     exercise_cal = {'exercise': exercise, 'calories': calories}
     return exercise_cal
+
+
+@app.route('/api/get-food-cal', methods=["POST"])
+def get_cal_for_user_food():
+    """Get calories, validate input, and return information about food."""
+
+    received = request.json
+
+    form = FoodForm(data=received)
+
+    if form.validate_on_submit():
+        food = received['food']
+        food_cal_user = get_cal_for_food(food)
+
+        return food_cal_user
+
+    else:
+        return jsonify(errors=form.errors)
+
+
+@app.route('/api/get-exercise-cal', methods=["POST"])
+def get_cal_for_user_exercise():
+    """Get calories, validate input, and return information about exercise."""
+
+    received = request.json
+
+    form = ExerciseForm(data=received)
+
+    if form.validate_on_submit():
+        exercise = received['exercise']
+        exercise_cal_user = get_cal_for_exercise(exercise)
+
+        return exercise_cal_user
+
+    else:
+        return jsonify(errors=form.errors)
+
 
 ## USER SIGNUP/LOGIN/LOGOUT
 

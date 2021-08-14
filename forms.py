@@ -41,10 +41,10 @@ class FoodForm(FlaskForm):
     """Form for logging food items."""
 
     food = StringField('Food Item', validators=[InputRequired(message="Must include food item.")])
-    food2 = StringField('Optional Food Item', validators=[Optional()])
-    food3 = StringField('Optional Food Item', validators=[Optional()])
-    food4 = StringField('Optional Food Item', validators=[Optional()])
-    food5 = StringField('Optional Food Item', validators=[Optional()])
+    # food2 = StringField('Optional Food Item', validators=[Optional()])
+    # food3 = StringField('Optional Food Item', validators=[Optional()])
+    # food4 = StringField('Optional Food Item', validators=[Optional()])
+    # food5 = StringField('Optional Food Item', validators=[Optional()])
     date = DateField('Date', validators=[InputRequired(message="Must include the date.")])
 
 
@@ -52,8 +52,8 @@ class ExerciseForm(FlaskForm):
     """Form for logging exercises."""
 
     exercise = StringField('Exercise Type', validators=[InputRequired(message="Must include an exercise type.")])
-    exercise2 = StringField('Optional Exercise Type', validators=[Optional()])
-    exercise3 = StringField('Optional Exercise Type', validators=[Optional()])
+    # exercise2 = StringField('Optional Exercise Type', validators=[Optional()])
+    # exercise3 = StringField('Optional Exercise Type', validators=[Optional()])
     date = DateField('Date', validators=[InputRequired(message="Must include the date.")])
 
 
