@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="h1">Log Exercise Type into Daily Journal for {{ user.username }}</h1>
+    <p>Use this form to log an exercise type into the daily journal. Be as specific as you can with the duration or length of exercise to help make the calorie count as accurate as possible. Example: "ran 3 miles" or "yoga for 30 minutes" is going to give a more accurate result than simply putting just "ran" or "yoga".</p>
+    <form method="POST" id="exercise_form">
+        {{ form.hidden_tag() }}
+
+        {% for field in form if field.widget.input_type != 'hidden' %}
+        <p>
+            {% for error in field.errors %}
+            <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+            {{ field(placeholder=field.label.text, class="form-control") }}
+        </p>
+        {% endfor %}
+
+        <button class="btn btn-primary">Log Exercise</button>
+        <a href="/profile/{{ user.id }}" class="btn btn-success">Back to Profile</a>
+    </form>
+</div>
+
+{% endblock %}

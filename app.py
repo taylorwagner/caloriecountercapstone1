@@ -43,40 +43,40 @@ def get_cal_for_exercise(user_exercise):
     return exercise_cal
 
 
-@app.route('/api/get-food-cal', methods=["POST"])
-def get_cal_for_user_food():
-    """Get calories, validate input, and return information about food."""
+# @app.route('/api/get-food-cal', methods=["POST"])
+# def get_cal_for_user_food():
+#     """Get calories, validate input, and return information about food."""
 
-    received = request.json
+#     received = request.json
 
-    form = FoodForm(data=received)
+#     form = FoodForm(data=received)
 
-    if form.validate_on_submit():
-        food = received['food']
-        food_cal_user = get_cal_for_food(food)
+#     if form.validate_on_submit():
+#         food = received['food']
+#         food_cal_user = get_cal_for_food(food)
 
-        return food_cal_user
+#         return food_cal_user
 
-    else:
-        return jsonify(errors=form.errors)
+#     else:
+#         return jsonify(errors=form.errors)
 
 
-@app.route('/api/get-exercise-cal', methods=["POST"])
-def get_cal_for_user_exercise():
-    """Get calories, validate input, and return information about exercise."""
+# @app.route('/api/get-exercise-cal', methods=["POST"])
+# def get_cal_for_user_exercise():
+#     """Get calories, validate input, and return information about exercise."""
 
-    received = request.json
+#     received = request.json
 
-    form = ExerciseForm(data=received)
+#     form = ExerciseForm(data=received)
 
-    if form.validate_on_submit():
-        exercise = received['exercise']
-        exercise_cal_user = get_cal_for_exercise(exercise)
+#     if form.validate_on_submit():
+#         exercise = received['exercise']
+#         exercise_cal_user = get_cal_for_exercise(exercise)
 
-        return exercise_cal_user
+#         return exercise_cal_user
 
-    else:
-        return jsonify(errors=form.errors)
+#     else:
+#         return jsonify(errors=form.errors)
 
 
 ## USER SIGNUP/LOGIN/LOGOUT
@@ -274,6 +274,27 @@ def stop_following(follow_id):
     db.session.commit()
 
     return redirect(f"/account/{g.user.id}/following")
+
+
+## JOURNAL ROUTES
+
+
+@app.route('/account/<int:user_id>/food')
+def log_food(user_id):
+    """Display form for logging food into journal"""
+    form = FoodForm()
+    user = User.query.get_or_404(user_id)
+
+    return render_template('users/food.html', form=form, user=user)
+
+
+@app.route('/account/<int:user_id>/exercise')
+def log_food(user_id):
+    """Display form for logging exercise into journal"""
+    form = FoodForm()
+    user = User.query.get_or_404(user_id)
+
+    return render_template('users/exercise.html', form=form, user=user)
 
 
 ## GROUP ROUTES
