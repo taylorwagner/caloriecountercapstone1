@@ -282,6 +282,10 @@ def stop_following(follow_id):
 @app.route('/account/<int:user_id>/food')
 def log_food(user_id):
     """Display form for logging food into journal"""
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect("/")
+
     form = FoodForm()
     user = User.query.get_or_404(user_id)
 
@@ -291,7 +295,11 @@ def log_food(user_id):
 @app.route('/account/<int:user_id>/exercise')
 def log_food(user_id):
     """Display form for logging exercise into journal"""
-    form = FoodForm()
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect("/")
+
+    form = ExerciseForm()
     user = User.query.get_or_404(user_id)
 
     return render_template('users/exercise.html', form=form, user=user)
