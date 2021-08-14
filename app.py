@@ -293,7 +293,7 @@ def log_food(user_id):
 
 
 @app.route('/account/<int:user_id>/exercise')
-def log_food(user_id):
+def log_exercise(user_id):
     """Display form for logging exercise into journal"""
     if not g.user:
         flash("Access unauthorized.", 'danger')
