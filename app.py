@@ -1,11 +1,14 @@
 """Calorie Counter Flask App."""
 
 from flask import Flask, session, g, request, render_template, redirect, flash
+import requests
+from secrets import NUTRITIONIX_APP_ID, NUTRITIONIX_APP_KEY
 from sqlalchemy.exc import IntegrityError
 from forms import UserForm, LoginForm, GroupForm, FoodForm, ExerciseForm, DeleteForm
 from models import db, connect_db, User, Group, UserGroup, Follows
 
 CURR_USER_KEY = "curr_user"
+NUTRITIONIX_API_BASE_URL = "https://trackapi.nutritionix.com/v2/natural"
 
 app = Flask(__name__)
 
