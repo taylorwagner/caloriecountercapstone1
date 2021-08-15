@@ -1,4 +1,4 @@
-# caloriecountercapstone1
+# Calorie Counter
 API: https://developer.nutritionix.com/
 
 User Flow
