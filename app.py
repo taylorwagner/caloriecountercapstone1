@@ -1,8 +1,8 @@
 """Calorie Counter Flask App."""
 
+from secret import api_id, api_key
 import requests
 from flask import Flask, session, g, request, render_template, redirect, flash, jsonify
-from secrets import api_id, api_key
 from sqlalchemy.exc import IntegrityError
 from forms import UserForm, LoginForm, GroupForm, FoodForm, ExerciseForm, DeleteForm
 from models import db, connect_db, User, Group, UserGroup, Follows

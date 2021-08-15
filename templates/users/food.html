@@ -3,8 +3,8 @@
 {% block content %}
 
 <div class="container">
-    <h1 class="h1">Log Food Item into Daily Journal for {{ user.username }}</h1>
-    <p>Use this form to log a food item into the daily journal. Be as specific as you can with amount to help make the calorie count as accurate as possible. Example: "3 cups of scrambled eggs" is going to give a more accurate result than "eggs".</p>
+    <h1 class="h1">Log food item into Daily Journal for {{ user.username }}</h1>
+    <p>Use this form to log a food item into the daily journal. Be as specific as you can with the amount of the food to help make the calorie count as accurate as possible. Example: "3 cups of scrambled eggs" is going to give a more accurate result than just "eggs".</p>
     <form method="POST" id="food_form">
         {{ form.hidden_tag() }}
 
