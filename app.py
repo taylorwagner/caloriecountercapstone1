@@ -375,6 +375,21 @@ def edit_group(group_id):
     return render_template('groups/edit.html', group_id=group.id, form=form)
 
 
+@app.route('/groups/<int:group_id>/delete', methods=["POST"])
+def delete_group(group_id):
+    """Delete user."""
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect('/')
+
+    group = Group.query.get_or_404(group_id)
+
+    db.session.delete(group)
+    db.session.commit()
+
+    return redirect('/groups')
+
+
 ## APPLICATION MAIN ROUTES
 
 
