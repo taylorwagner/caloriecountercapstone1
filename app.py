@@ -353,6 +353,23 @@ def show_group(group_id):
     return render_template('groups/show.html', group=group)
 
 
+@app.route('/groups/<int:group_id>/join')
+def join_group(group_id):
+    """Logged in user joins group."""
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect('/')
+
+    group = Group.query.get_or_404(group_id)
+    user = g.user
+    new_user_group = UserGroup(group_id=group, user_id=user.id)
+
+    db.session.add(new_user_group)
+    db.session.commit()
+
+    return redirect(f'/groups/{group.id}')
+
+
 @app.route('/groups/<int:group_id>/edit', methods=["GET", "POST"])
 def edit_group(group_id):
     """Edit group."""
@@ -377,7 +394,7 @@ def edit_group(group_id):
 
 @app.route('/groups/<int:group_id>/delete', methods=["POST"])
 def delete_group(group_id):
-    """Delete user."""
+    """Delete group."""
     if not g.user:
         flash("Access unauthorized.", 'danger')
         return redirect('/')
