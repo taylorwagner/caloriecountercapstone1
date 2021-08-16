@@ -2,7 +2,7 @@
 
 from unittest import TestCase
 from sqlalchemy import exc
-from models import db, User, Follows
+from models import db, User
 from app import app
 
 app.config['SQLALCHEMY_DATABASE_URL'] = 'postgresql:///calcount_test'
