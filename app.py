@@ -353,6 +353,28 @@ def show_group(group_id):
     return render_template('groups/show.html', group=group)
 
 
+@app.route('/groups/<int:group_id>/edit', methods=["GET", "POST"])
+def edit_group(group_id):
+    """Edit group."""
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect('/')
+
+    group = Group.query.get_or_404(group_id)
+    form = GroupForm()
+
+    if form.validate_on_submit():
+        group.name = form.name.data
+        group.description = form.description.data
+
+        db.session.commit()
+
+        flash(f"Edited {group.name}", 'success')
+        return redirect(f"/groups/{group.id}")
+
+    return render_template('groups/edit.html', group_id=group.id, form=form)
+
+
 ## APPLICATION MAIN ROUTES
 
 

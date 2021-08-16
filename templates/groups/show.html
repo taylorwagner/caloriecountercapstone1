@@ -17,9 +17,9 @@
     <p>There are no users in this group yet!</p>
     {% endif %}
 
-    <a href="" class="btn btn-primary">Join Group</a>
-    <a href="" class="btn btn-danger">Delete Group</a>
-    <a href="" class="btn btn-warning">Edit Group</a>
+    <a href="/groups/{{ group.id }}/join" class="btn btn-primary">Join Group</a>
+    <a href="/groups/{{ group.id }}/delete" class="btn btn-danger">Delete Group</a>
+    <a href="/groups/{{ group.id }}/edit" class="btn btn-warning">Edit Group</a>
     <a href="/groups" class="btn btn-success">Back to all Groups</a>
 </div>
 
