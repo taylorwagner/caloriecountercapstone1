@@ -5,22 +5,13 @@
 <div class="container">
     <h1 class="h1">Profile for {{ user.username }}</h1>
     <h2 class="h2">Daily Caloric Goal: {{ user.goal_cal }}</h2>
+    <a href="" class="btn btn-primary">Follow</a>
 
-    {% if g.user.is_following(follower) %}
-            <form method="POST" action="/account/stop-following/{{ user.following.id }}">
-              <button class="btn btn-primary btn-sm">Unfollow</button>
-            </form>
-            {% else %}
-            <form method="POST" action="/account/follow/{{ user.following.id }}">
-              <button class="btn btn-outline-primary btn-sm">Follow</button>
-            </form>
-    {% endif %}
-    
     <ul>
         <li><a href="/account/{{ user.id }}/groups">Groups</a></li>
         <li><a href="/account/{{ user.id}}/following">Following</a></li>
         <li><a href="/account/{{ user.id}}/followers">Followers</a></li>
-        {% if g.user == user.username %}
+        {% if g.user %}
         <li><a href="/account/{{ user.id }}">Account</a></li>
         {% endif %}
     </ul>
@@ -31,12 +22,12 @@
     <div class="container journal-cards">
         <div class="card" style="width: 18rem;">
             <div class="card-header">
-              Featured
+              Date Here
             </div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">Cras justo odio</li>
-              <li class="list-group-item">Dapibus ac facilisis in</li>
-              <li class="list-group-item">Vestibulum at eros</li>
+              <li class="list-group-item">Food/Calories</li>
+              <li class="list-group-item">Food/Calories</li>
+              <li class="list-group-item">Exercise/Calories</li>
             </ul>
           </div>
     </div>
