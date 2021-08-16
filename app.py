@@ -422,6 +422,12 @@ def about_page():
     return render_template('about.html')
 
 
+@app.errorhandler(404)
+def not_found(e):
+    """Custom 404 page."""
+    return render_template('404.html'), 404
+
+
 @app.route('/profile/<int:user_id>')
 def show_profile(user_id):
     """Show profile page for user."""
