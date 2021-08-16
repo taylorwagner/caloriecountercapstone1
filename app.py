@@ -361,7 +361,7 @@ def edit_group(group_id):
         return redirect('/')
 
     group = Group.query.get_or_404(group_id)
-    form = GroupForm()
+    form = GroupForm(obj=group)
 
     if form.validate_on_submit():
         group.name = form.name.data
