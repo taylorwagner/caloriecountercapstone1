@@ -15,8 +15,9 @@ Table groups {
 }
 
 Table follows {
-  user_following_id int [pk, fk]
-  user_followed_id int [pk, fk]
+  id int [pk, increment]
+  user_following_id int [fk]
+  user_followed_id int [fk]
 }
 
 Table users_groups {

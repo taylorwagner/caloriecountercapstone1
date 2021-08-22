@@ -12,12 +12,13 @@ class Follows(db.Model):
 
     __tablename__ = "follows"
 
-    user_following_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="cascade"), primary_key=True)
-    user_followed_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="cascade"), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_following_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="cascade"))
+    user_followed_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="cascade"))
 
     def __repr__(self):
         """Human readable representation of follow table data."""
-        return f"<Follows: user_following_id={self.user_following_id}, user_followed_id={self.user_followed_id}>"
+        return f"<Follows #{self.id}: user_following_id={self.user_following_id}, user_followed_id={self.user_followed_id}>"
 
 
 class User(db.Model):

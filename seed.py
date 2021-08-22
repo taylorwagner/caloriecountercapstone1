@@ -57,10 +57,10 @@ db.session.add_all([fake_ug1, fake_ug2, fake_ug3, fake_ug4])
 db.session.commit()
 
 # Add sample follows
-fake_f1 = Follows(user_following_id=553131, user_followed_id=771010)
-fake_f2 = Follows(user_following_id=771010, user_followed_id=553131)
-fake_f3 = Follows(user_following_id=771010, user_followed_id=660101)
-fake_f4 = Follows(user_following_id=440202, user_followed_id=660101)
+fake_f1 = Follows(id=99999, user_following_id=553131, user_followed_id=771010)
+fake_f2 = Follows(id=99998, user_following_id=771010, user_followed_id=553131)
+fake_f3 = Follows(id=99997, user_following_id=771010, user_followed_id=660101)
+fake_f4 = Follows(id=99996, user_following_id=440202, user_followed_id=660101)
 
 # Add new objects to session, so they'll persist
 db.session.add_all([fake_f1, fake_f2, fake_f3, fake_f4])
