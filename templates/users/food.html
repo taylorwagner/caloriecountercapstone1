@@ -6,16 +6,15 @@
     <h1 class="h1">Log food item into Daily Journal for {{ user.username }}</h1>
     <p>Use this form to log a food item into the daily journal. Be as specific as you can with the amount of the food to help make the calorie count as accurate as possible. Example: "3 cups of scrambled eggs" is going to give a more accurate result than just "eggs".</p>
     <form method="POST" id="food_form">
-        {{ form.hidden_tag() }}
-
-        {% for field in form if field.widget.input_type != 'hidden' %}
-        <p>
-            {% for error in field.errors %}
-            <span class="text-danger">{{ error }}</span>
-            {% endfor %}
-            {{ field(placeholder=field.label.text, class="form-control") }}
-        </p>
-        {% endfor %}
+        
+        <div class="form-group">
+            <label for="foodItem">Food Item</label>
+            <input type="text" class="form-control" id="foodItem" placeholder="Food Item">
+        </div>
+        <div class="form-group">
+            <label for="foodDate">Date</label>
+            <input type="date" class="form-control" id="foodDate" placeholder="Date">
+        </div>
 
         <button class="btn btn-primary">Log Food</button>
         <a href="/profile/{{ user.id }}" class="btn btn-success">Back to Profile</a>
