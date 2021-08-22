@@ -8,7 +8,8 @@ function processFoodForm(e) {
         url: "/api/get-food-cal",
         contentType: "application/json",
         data: JSON.stringify({
-            food: $("#food").val()
+            food: $("#foodItem").val(),
+            date: $("#foodDate").val()
         }),
         success: handleFoodResponse
     })
@@ -19,25 +20,20 @@ function processFoodForm(e) {
 function handleFoodResponse(res) {
     if("errors" in res) {
         for(let field in res.errors) {
-            $(`#${field}-error`).text(res.errors[field]);
+            $(`#${field}-err`).text(res.errors[field]);
         }
     }
 
     else {
-        let {food, calories} = res;
-        let card = `<div class="card" style="width: 18rem;">
-                    <div class="card-header"> ${date} </div>
-                    <ul class="list-group list-group-flush>
-                    <li class="list-group-item"> ${food}...${calories} <li>
-                    </ul>
-                    </div>`
+        let {food} = res;
+        let card = `The date is ${date}. The food is ${food.food} and the calorie count is ${food.calories}.`;
 
-        $("#journal-cards").appendChild(card);
+        $("#journal-cards").text(card);
     }
 }
 
 
-$("#food_form").JSON("submit", processFoodForm);
+$("#food_form").on("submit", processFoodForm);
 
 
 /** processForm: get data from exercise form and make AJAX call to backend API */
@@ -50,7 +46,8 @@ function processExerciseForm(e) {
         url: "/api/get-exercise-cal",
         contentType: "application/json",
         data: JSON.stringify({
-            exercise: $("#exercise").val()
+            exercise: $("#exerciseType").val(),
+            date: $("#exerciseDate").val()
         }),
         success: handleExerciseResponse
     })
@@ -61,16 +58,16 @@ function processExerciseForm(e) {
 function handleExerciseResponse(res) {
     if("errors" in res) {
         for(let field in res.errors) {
-            $(`#${field}-error`).text(res.errors[field]);
+            $(`#${field}-err`).text(res.errors[field]);
         }
     }
 
     else {
-        let {exercise, calories} = res;
+        let {exercise, date} = res;
         let card = `<div class="card" style="width: 18rem;">
                     <div class="card-header"> ${date} </div>
                     <ul class="list-group list-group-flush>
-                    <li class="list-group-item"> ${exercise}...${calories} <li>
+                    <li class="list-group-item"> ${exercise.exercise}...${exercise.calories} <li>
                     </ul>
                     </div>`
 
@@ -79,4 +76,4 @@ function handleExerciseResponse(res) {
 }
 
 
-$("#exercise_form").JSON("submit", processExerciseForm);
+$("#exercise_form").on("submit", processExerciseForm);

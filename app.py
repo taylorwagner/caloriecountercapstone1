@@ -25,22 +25,14 @@ def get_cal_for_food(user_food):
     """Given a food, get a calorie number."""
 
     res = requests.post(f"{NUTRITIONIX_API_BASE_URL}/nutrients", headers={"x-app-Id": api_id, "x-app-Key": api_key, "x-remote-user-id": 0}, body={"query": user_food})
-    data = res.json()
-    food = data["foods"][0]['food_name']
-    calories = data["foods"][0]['nf_calories']
-    food_cal = {'food': food, 'calories': calories}
-    return food_cal
+    return res.text
 
 
 def get_cal_for_exercise(user_exercise):
     """Given an exerise, get a calorie number."""
 
     res = requests.post(f"{NUTRITIONIX_API_BASE_URL}/exercise", headers={"x-app-Id": api_id, "x-app-Key": api_key, "x-remote-user-id": 0}, body={"query": user_exercise})
-    data = res.json()
-    exercise = data["exercises"][0]['user_input']
-    calories = data["exercises"][0]['nf_calories']
-    exercise_cal = {'exercise': exercise, 'calories': calories}
-    return exercise_cal
+    return res.text
 
 
 @app.route('/api/get-food-cal', methods=["POST"])
@@ -49,13 +41,15 @@ def get_cal_for_user_food():
 
     received = request.json
 
-    form = FoodForm(data=received)
+    form = FoodForm(csrf_enabled=False, data=received)
 
     if form.validate_on_submit():
-        food = received['food']
-        food_cal_user = get_cal_for_food(food)
+        food = received["foods"][0]['food_name']
+        calories = received["foods"][0]['nf_calories']
 
-        return food_cal_user
+        return jsonify(
+            food={"food": get_cal_for_food(food), "calories": get_cal_for_food(calories)}
+        )
 
     else:
         return jsonify(errors=form.errors)
@@ -67,13 +61,15 @@ def get_cal_for_user_exercise():
 
     received = request.json
 
-    form = ExerciseForm(data=received)
+    form = ExerciseForm(csrf_enabled=False, data=received)
 
     if form.validate_on_submit():
-        exercise = received['exercise']
-        exercise_cal_user = get_cal_for_exercise(exercise)
+        exercise = received["exercises"][0]['user_input']
+        calories = received["exercises"][0]['nf_calories']
 
-        return exercise_cal_user
+        return jsonify(
+            exercise={"exercise": get_cal_for_exercise(exercise), "calories": get_cal_for_exercise(calories)}
+        )
 
     else:
         return jsonify(errors=form.errors)

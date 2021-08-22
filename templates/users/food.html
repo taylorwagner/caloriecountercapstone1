@@ -10,15 +10,19 @@
         <div class="form-group">
             <label for="foodItem">Food Item</label>
             <input type="text" class="form-control" id="foodItem" placeholder="Food Item">
+            <b id="foodItem-err"></b>
         </div>
         <div class="form-group">
             <label for="foodDate">Date</label>
             <input type="date" class="form-control" id="foodDate" placeholder="Date">
+            <b id="foodDate-err"></b>
         </div>
 
         <button class="btn btn-primary">Log Food</button>
         <a href="/profile/{{ user.id }}" class="btn btn-success">Back to Profile</a>
     </form>
+
+    <div class="journal-cards"></div>
 </div>
 
 {% endblock %}
