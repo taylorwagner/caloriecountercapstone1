@@ -13,7 +13,9 @@
         </ul>
         <p>Do you want to edit your account?</p>
         <a href="/account/{{ user.id }}/edit" class="btn btn-primary">Edit Account</a>
-        <a href="/account/delete" class="btn btn-danger">Delete Account</a>
+        <form method="POST" action="/account/delete">
+            <button class="btn btn-danger">Delete Account</button>
+        </form>
         <a href="/profile/{{ user.id }}" class="btn btn-success">Back to Profile</a>
 </div>
 
