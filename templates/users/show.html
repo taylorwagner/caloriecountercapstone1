@@ -11,7 +11,7 @@
         <li><a href="/account/{{ user.id }}/groups">Groups</a></li>
         <li><a href="/account/{{ user.id}}/following">Following</a></li>
         <li><a href="/account/{{ user.id}}/followers">Followers</a></li>
-        {% if g.user %}
+        {% if g.user.id == user.id %}
         <li><a href="/account/{{ user.id }}">Account</a></li>
         {% endif %}
     </ul>
