@@ -18,7 +18,7 @@ User signup, login, and logout functionality was implemented, as well as authent
 
 ### Technologies
 
-Bootstrap was used for simple design choices throughout the application's many forms and styling of buttons and other elements. Flash messaging was implemented to support user experience and allow for confirmation of successful actions. WTForms was utilized for the helpful validators available.
+Bootstrap was used for simple design choices throughout the application's many forms and styling of buttons and other elements. Flash messaging was implemented to support user experience and allow for confirmation of successful actions and warn user of unauthorized access. WTForms was utilized for the helpful validators available.
 
 Main technologies used were Python, Flask, PostgreSQL, SQLAlchemy, and a minor amount of Javascript.
 
