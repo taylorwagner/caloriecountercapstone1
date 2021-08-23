@@ -2,6 +2,7 @@
 
 {% block content %}
 
+{% if g.user.id == user.id %}
 <div class="container">
     <h1 class="h1">Account for {{ user.username }}</h1>
         <ul>
@@ -18,5 +19,12 @@
         </form>
         <a href="/profile/{{ user.id }}" class="btn btn-success">Back to Profile</a>
 </div>
+{% else %}
+<div class="container">
+    <p>Account information is only accessible to the owner of the account.</p>
+    <p>Access your account below:</p>
+    <a href="/account/{{ g.user.id }}" class="btn btn-primary">Account Page</a>
+</div>
+{% endif %}
 
 {% endblock %}
