@@ -49,7 +49,3 @@ class ExerciseForm(FlaskForm):
 
     exercise = StringField('Exercise Type', validators=[InputRequired(message="Must include an exercise type.")])
     date = DateField('Date', validators=[InputRequired(message="Must include the date.")])
-
-
-class DeleteForm(FlaskForm):
-    """Delete form -- this form is intentionally blank."""
