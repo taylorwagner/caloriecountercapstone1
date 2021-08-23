@@ -4,7 +4,7 @@ Link to deployed site via Heroku:
 
 ## Across almost all demographics of people, health and wellness is an overall priority and concern; however, many people struggle with maintaining a healthy diet and active lifestyle even when they set goals for themselves. An attainable way to either begin or keep up with a health and wellness journey is to set a daily caloric intake goal. A daily caloric intake goal can be kept track of by having the number of calories per food item ate in a day be added to the daily count, while the number of calories burned in an exercise participated in be subtracted from the total to equal a net amount for the day. Unfortunately, the amount of calories for food items and exercise types aren't common knowledge for most people. In addition, many people struggle with their goals when they feel like they are alone so knowing other people are on a similar journey can be comforting and beneficial to goal success.
 
-**Calorie Counter** was designed to meet the needs of people looking to keep themselves accountable for their daily caloric intake goals and provide a space to gain a network of support from likeminded individuals all in one application. At the homepage of the application, users are able to learn more about the application, sign up for an account, or log in to an already registered account. After registration and/or logging in, users are redirected to their profile page, where they can view their journal and past entries, register new food items or exercise types for their journals, view and join support groups with similar users, and follow or be followed by different individual users in order to see other people's journals.
+**Calorie Counter** was designed to meet the needs of people looking to keep themselves accountable for their daily caloric intake goals as well as provide a space to gain a network of support from likeminded individuals all in one application. At the homepage of the application, users are able to learn more about the application, sign up for an account, or log in to an already registered account. After registration and/or logging in, users are redirected to their profile page, where they can view their journal and past entries, register new food items or exercise types to their journals, view and join support groups with similar users, and follow or be followed by different individual users in order to see other people's journals.
 
 ### API Info
 
@@ -16,7 +16,9 @@ Link to deployed site via Heroku:
 
 ### Technologies
 
+Bootstrap was used for simple design choices throughout the application's many forms and styling of buttons and other elements. Flash messaging was implemented to support user experience and allow for confirmation of successful actions. WTForms was utilized for the helpful validators available.
 
+Main technologies used were Python, Flask, PostgreSQL, SQLAlchemy, and a minor amount of Javascript.
 
 ### Installation and Testing
 
