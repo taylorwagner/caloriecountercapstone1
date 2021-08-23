@@ -10,11 +10,13 @@
 
     <h3 class="h3">Users in Group</h3>
     {% if group.users %}
-    <ul>
-        <li><a href="/profile/{{ group.users.id }}">{{ group.users.username }}</a></li>
-    </ul>
-    {% else %}
-    <p>There are no users in this group yet!</p>
+        {% for u in group.users %}
+        <ul>
+            <li><a href="/profile/{{ u.id }}">{{ u.username }}</a></li>
+        </ul>
+        {% endfor %}
+        {% else %}
+        <p>There are no users in this group yet!</p>
     {% endif %}
 
     <form method="POST" action="/groups/{{ group.id }}/join" class="form-inline">
