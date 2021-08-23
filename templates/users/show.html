@@ -5,7 +5,19 @@
 <div class="container">
     <h1 class="h1">Profile for {{ user.username }}</h1>
     <h2 class="h2">Daily Caloric Goal: {{ user.goal_cal }}</h2>
-    <a href="" class="btn btn-primary">Follow</a>
+    {% if g.user.id != user.id %}
+      {% for followed_user in g.user.following %}
+            {% if g.user.is_following(followed_user) %}
+            <form method="POST" action="/account/stop-following/{{ followed_user.id }}">
+              <button class="btn btn-primary btn-sm">Unfollow</button>
+            </form>
+            {% else %}
+            <form method="POST" action="/account/follow/{{ followed_user.id }}">
+              <button class="btn btn-outline-primary btn-sm">Follow</button>
+            </form>
+          {% endif %}
+      {% endfor %}
+    {% endif %}
 
     <ul>
         <li><a href="/account/{{ user.id }}/groups">Groups</a></li>
