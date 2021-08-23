@@ -17,7 +17,9 @@
     <p>There are no users in this group yet!</p>
     {% endif %}
 
-    <a href="/groups/{{ group.id }}/join" class="btn btn-primary">Join Group</a>
+    <form method="POST" action="/groups/{{ group.id }}/join" class="form-inline">
+        <button class="btn btn-primary">Join Group</button>
+    </form>
     <form method="POST" action="/groups/{{ group.id }}/delete" class="form-inline">
         <button class="btn btn-danger">Delete Group</button>
     </form>

@@ -349,7 +349,7 @@ def show_group(group_id):
     return render_template('groups/show.html', group=group)
 
 
-@app.route('/groups/<int:group_id>/join')
+@app.route('/groups/<int:group_id>/join', methods=["POST"])
 def join_group(group_id):
     """Logged in user joins group."""
     if not g.user:
@@ -357,8 +357,9 @@ def join_group(group_id):
         return redirect('/')
 
     group = Group.query.get_or_404(group_id)
+    groupid = group_id
     user = g.user
-    new_user_group = UserGroup(group_id=group, user_id=user.id)
+    new_user_group = UserGroup(group_id=groupid, user_id=user.id)
 
     db.session.add(new_user_group)
     db.session.commit()
