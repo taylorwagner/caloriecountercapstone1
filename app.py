@@ -367,6 +367,25 @@ def join_group(group_id):
     return redirect(f'/groups/{group.id}')
 
 
+@app.route('/groups/<int:group_id>/leave', methods=["POST"])
+def leave_group(group_id):
+    """Logged in user leaves group."""
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect('/')
+
+    group = Group.query.get_or_404(group_id)
+    groupid = group_id
+    user = g.user
+    target_user_group = UserGroup(group_id=groupid, user_id=user.id)
+    targetid = target_user_group.id
+
+    db.session.delete(targetid)
+    db.session.commit()
+
+    return redirect(f'/groups/{group.id}')
+
+
 @app.route('/groups/<int:group_id>/edit', methods=["GET", "POST"])
 def edit_group(group_id):
     """Edit group."""
