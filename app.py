@@ -24,14 +24,14 @@ connect_db(app)
 def get_cal_for_food(user_food):
     """Given a food, get a calorie number."""
 
-    res = requests.post(f"{NUTRITIONIX_API_BASE_URL}/nutrients", headers={"x-app-Id": api_id, "x-app-Key": api_key, "x-remote-user-id": 0}, body={"query": user_food})
+    res = requests.post(f"{NUTRITIONIX_API_BASE_URL}/nutrients", headers={"x-app-id": api_id, "x-app-key": api_key, "x-remote-user-id": 0}, body={"query": user_food})
     return res.text
 
 
 def get_cal_for_exercise(user_exercise):
     """Given an exerise, get a calorie number."""
 
-    res = requests.post(f"{NUTRITIONIX_API_BASE_URL}/exercise", headers={"x-app-Id": api_id, "x-app-Key": api_key, "x-remote-user-id": 0}, body={"query": user_exercise})
+    res = requests.post(f"{NUTRITIONIX_API_BASE_URL}/exercise", headers={"x-app-id": api_id, "x-app-key": api_key, "x-remote-user-id": 0}, body={"query": user_exercise})
     return res.text
 
 
