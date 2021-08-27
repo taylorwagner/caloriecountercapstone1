@@ -4,7 +4,6 @@
 
 <div class="container">
     <h1 class="h1">Profile for {{ user.username }}</h1>
-    <h2 class="h2">Daily Caloric Goal: {{ user.goal_cal }}</h2>
     {% if g.user.id != user.id %}
       {% for followed_user in g.user.following %}
             {% if g.user.is_following(followed_user) %}
@@ -29,8 +28,8 @@
     </ul>
 
     <h2 class="h2">Journal</h2>
+    <h3 class="h3">Daily Caloric Goal: {{ user.goal_cal }}</h2>
     <a href="/account/{{ user.id }}/food" class="btn btn-primary">Record Food</a>
-    <a href="/account/{{ user.id }}/exercise" class="btn btn-warning">Record Exercise</a>
     <div class="container journal-cards">
         <div class="card" style="width: 18rem;">
             <div class="card-header">
@@ -39,7 +38,6 @@
             <ul class="list-group list-group-flush">
               <li class="list-group-item">Food/Calories</li>
               <li class="list-group-item">Food/Calories</li>
-              <li class="list-group-item">Exercise/Calories</li>
             </ul>
           </div>
     </div>
