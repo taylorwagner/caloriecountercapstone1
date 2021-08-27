@@ -26,7 +26,7 @@ User signup, login, and logout functionality was implemented, as well as authent
 
 ### Technologies
 
-Python, Flask, PostgreSQL, SQLAlchemy, Javascript, Bootstrap, Flash Messaging, WTForms.
+Python, Flask, WTForms, PostgreSQL, SQLAlchemy, Javascript, Bootstrap, Flash Messaging.
 
 ### Installation 
 
