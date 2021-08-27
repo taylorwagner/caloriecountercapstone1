@@ -6,6 +6,8 @@ Link to deployed site via Heroku:
 
 **Calorie Counter** was designed to meet the needs of people looking to keep themselves accountable for their daily caloric intake goals as well as provide a space to gain a network of support from likeminded individuals all in one application. At the homepage of the application, users are able to learn more about the application, sign up for an account, or log in to an already registered account. After registration and/or logging in, users are redirected to their profile page, where they can view their journal and past entries, register new food items to their journals, view and join support groups with similar users, and follow or be followed by different individual users in order to see other people's journals.
 
+![Application User Flow](static/images/calcountuserflow.png)
+
 ### Features
 
 -----LIST FEATURES HERE
