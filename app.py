@@ -22,13 +22,13 @@ connect_db(app)
 
 
 ## CALORIE NINJA API
-def get_food_cal(user_food):
+def get_food_cal(foodInputted):
     """Given a food, get a calorie number."""
 
-    res = requests.get(f"{CALORIE_NINJA_API_BASE_URL}{user_food}", headers={'X-Api-Key': api_key_cal_ninja})
-    return res
+    res = requests.get(f"{CALORIE_NINJA_API_BASE_URL}{foodInputted}", headers={'X-Api-Key': api_key_cal_ninja})
+    return res.text
 
-    
+
 ## NUTRITIONIX API
 # def get_cal_for_food(user_food):
 #     """Given a food, get a calorie number."""
@@ -53,12 +53,11 @@ def get_cal_for_user_food():
     form = FoodForm(csrf_enabled=False, data=received)
 
     if form.validate_on_submit():
-        food = received["foods"][0]['food_name']
-        calories = received["foods"][0]['nf_calories']
+        foodInputted = received["food"]
+        dateInputted = received["date"]
 
         return jsonify(
-            food={"food": get_cal_for_food(food), "calories": get_cal_for_food(calories)}
-        )
+            food={"food": get_food_cal(foodInputted)})
 
     else:
         return jsonify(errors=form.errors)
