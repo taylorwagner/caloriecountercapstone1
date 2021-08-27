@@ -20,8 +20,10 @@ User signup, login, and logout functionality was implemented, as well as authent
 
 Python, Flask, PostgreSQL, SQLAlchemy, Javascript, Bootstrap, Flash Messaging, WTForms.
 
-### Installation and Testing
+### Installation 
 
 To run this code locally, clone this repository to your computer, set up a virtual environment, and install the requirements. Create a local database and test database in PostgreSQL, and update the app config database variables in app.py and various test files. *The CalorieNinjas API is free (https://api.calorieninjas.com/)* but in order to use, the acquisition of an API Key is required. May set the required API Key in the secret.py file.
 
-To run tests, use Python: run all tests in VSCode, or use the terminal command "python -m unittest" to run all tests. To run test files individually, use the terminal command "python -m unittest <filename>".
+### Testing
+
+To run tests, use Python: run all tests in VSCode, or use the terminal command "python -m unittest" to run all tests. To run test files individually, use the terminal command "python -m unittest <filename>". Test files can be found here: *(https://github.com/taylorwagner/caloriecountercapstone1/tree/main/tests)*
