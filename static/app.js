@@ -26,7 +26,7 @@ function handleFoodResponse(res) {
 
     else {
         let {food, date} = res;
-        let card = `The date is ${date}. The food is ${food.food} and the calorie count is ${food.calories}.`;
+        let card = `<p>The date is ${date}. The food is ${food.food} and the calorie count is ${food.calories}.</p>`;
 
         $("#journal-cards").text(card);
     }
@@ -36,44 +36,44 @@ function handleFoodResponse(res) {
 $("#food_form").on("submit", processFoodForm);
 
 
-/** processForm: get data from exercise form and make AJAX call to backend API */
+// /** processForm: get data from exercise form and make AJAX call to backend API */
 
-function processExerciseForm(e) {
-    e.preventDefault();
+// function processExerciseForm(e) {
+//     e.preventDefault();
 
-    $.ajax({
-        method: "POST",
-        url: "/api/get-exercise-cal",
-        contentType: "application/json",
-        data: JSON.stringify({
-            exercise: $("#exerciseType").val(),
-            date: $("#exerciseDate").val()
-        }),
-        success: handleExerciseResponse
-    })
-}
+//     $.ajax({
+//         method: "POST",
+//         url: "/api/get-exercise-cal",
+//         contentType: "application/json",
+//         data: JSON.stringify({
+//             exercise: $("#exerciseType").val(),
+//             date: $("#exerciseDate").val()
+//         }),
+//         success: handleExerciseResponse
+//     })
+// }
 
-/** handleResponse: deal with response from backend exercise-cal API */
+// /** handleResponse: deal with response from backend exercise-cal API */
 
-function handleExerciseResponse(res) {
-    if("errors" in res) {
-        for(let field in res.errors) {
-            $(`#${field}-err`).text(res.errors[field]);
-        }
-    }
+// function handleExerciseResponse(res) {
+//     if("errors" in res) {
+//         for(let field in res.errors) {
+//             $(`#${field}-err`).text(res.errors[field]);
+//         }
+//     }
 
-    else {
-        let {exercise, date} = res;
-        let card = `<div class="card" style="width: 18rem;">
-                    <div class="card-header"> ${date} </div>
-                    <ul class="list-group list-group-flush>
-                    <li class="list-group-item"> ${exercise.exercise}...${exercise.calories} <li>
-                    </ul>
-                    </div>`
+//     else {
+//         let {exercise, date} = res;
+//         let card = `<div class="card" style="width: 18rem;">
+//                     <div class="card-header"> ${date} </div>
+//                     <ul class="list-group list-group-flush>
+//                     <li class="list-group-item"> ${exercise.exercise}...${exercise.calories} <li>
+//                     </ul>
+//                     </div>`
 
-        $("#journal-cards").appendChild(card);
-    }
-}
+//         $("#journal-cards").appendChild(card);
+//     }
+// }
 
 
-$("#exercise_form").on("submit", processExerciseForm);
+// $("#exercise_form").on("submit", processExerciseForm);

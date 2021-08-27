@@ -40,6 +40,9 @@ class GroupForm(FlaskForm):
 class FoodForm(FlaskForm):
     """Form for logging food items."""
 
+    class Meta:
+        csrf = False
+
     food = StringField('Food Item', validators=[InputRequired(message="Must include food item.")])
     date = DateField('Date', validators=[InputRequired(message="Must include the date.")])
 
