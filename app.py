@@ -25,7 +25,9 @@ def get_food_cal(foodInputted):
     """Given a food, get a calorie number."""
 
     res = requests.get(f"{CALORIE_NINJA_API_BASE_URL}{foodInputted}", headers={'X-Api-Key': api_key})
-    return res.text
+    data = res.json()
+    calories = data["items"][0]['calories']
+    return calories
 
 
 @app.route('/api/get-food-cal', methods=["POST"])
