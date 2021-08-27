@@ -8,7 +8,7 @@ from forms import UserForm, LoginForm, GroupForm, FoodForm
 from models import db, connect_db, User, Group, UserGroup
 
 CURR_USER_KEY = "curr_user"
-CALORIE_NINJA_API_BASE_URL = "https://api.calorieninjas.com/v1/nutrition?query="
+CALORIE_NINJA_API_BASE_URL = "https://api.calorieninjas.com/v1"
 
 app = Flask(__name__)
 
@@ -24,7 +24,7 @@ connect_db(app)
 def get_food_cal(foodInputted):
     """Given a food, get a calorie number."""
 
-    res = requests.get(f"{CALORIE_NINJA_API_BASE_URL}{foodInputted}", headers={'X-Api-Key': api_key})
+    res = requests.get(f"{CALORIE_NINJA_API_BASE_URL}/nutrition?query={foodInputted}", headers={'X-Api-Key': api_key})
     data = res.json()
     calories = data["items"][0]['calories']
     return calories
