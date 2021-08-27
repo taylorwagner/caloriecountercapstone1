@@ -20,6 +20,8 @@ This application uses four models: User, Group, User_Group, and Follows. The Use
 
 User signup, login, and logout functionality was implemented, as well as authentication and authorization. An account is required to access any of the detailed pages for different groups, users, and API functionality. Username and email must both be unique.
 
+![Database Models Schema](static/images/calcountschema.png)
+
 ### Technologies
 
 Python, Flask, PostgreSQL, SQLAlchemy, Javascript, Bootstrap, Flash Messaging, WTForms.
