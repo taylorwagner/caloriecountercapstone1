@@ -1,14 +1,13 @@
 """Calorie Counter Flask App."""
 
-from secret import api_id, api_key, api_key_cal_ninja
+from secret import api_key
 import requests
 from flask import Flask, session, g, request, render_template, redirect, flash, jsonify
 from sqlalchemy.exc import IntegrityError
-from forms import UserForm, LoginForm, GroupForm, FoodForm, ExerciseForm
+from forms import UserForm, LoginForm, GroupForm, FoodForm
 from models import db, connect_db, User, Group, UserGroup
 
 CURR_USER_KEY = "curr_user"
-NUTRITIONIX_API_BASE_URL = "https://trackapi.nutritionix.com/v2/natural"
 CALORIE_NINJA_API_BASE_URL = "https://api.calorieninjas.com/v1/nutrition?query="
 
 app = Flask(__name__)
@@ -25,23 +24,8 @@ connect_db(app)
 def get_food_cal(foodInputted):
     """Given a food, get a calorie number."""
 
-    res = requests.get(f"{CALORIE_NINJA_API_BASE_URL}{foodInputted}", headers={'X-Api-Key': api_key_cal_ninja})
+    res = requests.get(f"{CALORIE_NINJA_API_BASE_URL}{foodInputted}", headers={'X-Api-Key': api_key})
     return res.text
-
-
-## NUTRITIONIX API
-# def get_cal_for_food(user_food):
-#     """Given a food, get a calorie number."""
-
-#     res = requests.post(f"{NUTRITIONIX_API_BASE_URL}/nutrients", headers={"x-app-id": api_id, "x-app-key": api_key, "x-remote-user-id": 0}, body={"query": user_food})
-#     return res.text
-
-
-# def get_cal_for_exercise(user_exercise):
-#     """Given an exerise, get a calorie number."""
-
-#     res = requests.post(f"{NUTRITIONIX_API_BASE_URL}/exercise", headers={"x-app-id": api_id, "x-app-key": api_key, "x-remote-user-id": 0}, body={"query": user_exercise})
-#     return res.text
 
 
 @app.route('/api/get-food-cal', methods=["POST"])
@@ -61,26 +45,6 @@ def get_cal_for_user_food():
 
     else:
         return jsonify(errors=form.errors)
-
-
-# @app.route('/api/get-exercise-cal', methods=["POST"])
-# def get_cal_for_user_exercise():
-#     """Get calories, validate input, and return information about exercise."""
-
-#     received = request.json
-
-#     form = ExerciseForm(csrf_enabled=False, data=received)
-
-#     if form.validate_on_submit():
-#         exercise = received["exercises"][0]['user_input']
-#         calories = received["exercises"][0]['nf_calories']
-
-#         return jsonify(
-#             exercise={"exercise": get_cal_for_exercise(exercise), "calories": get_cal_for_exercise(calories)}
-#         )
-
-#     else:
-#         return jsonify(errors=form.errors)
 
 
 ## USER SIGNUP/LOGIN/LOGOUT
