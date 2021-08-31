@@ -1,5 +1,6 @@
 """Calorie Counter Flask App."""
 
+import os
 from secret import api_key
 import requests
 from flask import Flask, session, g, request, render_template, redirect, flash, jsonify
@@ -15,7 +16,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///calcount'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
-app.config['SECRET_KEY'] = "shh"
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'roaring20s')
 
 connect_db(app)
 
