@@ -1,6 +1,6 @@
 # Calorie Counter
 
-Link to deployed site via Heroku:
+Link to deployed site via Heroku: *(https://caloriecounterwagner.herokuapp.com/)*
 
 ## Across almost all demographics of people, health and wellness is an overall priority and concern; however, many people struggle with maintaining a healthy diet even when they set goals for themselves. An attainable way to either begin or keep up with a health and wellness journey is to set a daily caloric intake goal. A daily caloric intake goal can be kept track of by adding up the number of calories per food item eaten in a day and comparing it to the goal amount. Unfortunately, the amount of calories for food items aren't common knowledge for most people. In addition, many people struggle with their goals when they feel like they are alone so knowing other people are on a similar journey can be comforting and beneficial to goal success.
 
