@@ -1,3 +1,5 @@
+/* general */
+
 body {
     background-color: #f5f0ff;
 }
@@ -22,13 +24,22 @@ li a:hover {
     color: black;
 }
 
+/* navbar */
+
 .navbar {
     background-color: white;
 }
 
+/* buttons */
+
 .btn-primary {
     background-color: #B76FFF;
     border-color: #B76FFF;
+}
+
+.btn-primary:hover {
+    background-color: #330066;
+    border-color: #330066;
 }
 
 .btn-danger {
@@ -36,9 +47,21 @@ li a:hover {
     border-color: black;
 }
 
+.btn-danger:hover {
+    background-color: #707070;
+    border-color: black;
+    color: black;
+}
+
 .btn-outline-danger {
     color: black;
     border-color: black;
+}
+
+.btn-outline-danger:hover {
+    background-color: white;
+    border-color: white;
+    color: black;
 }
 
 .btn-success {
@@ -46,8 +69,20 @@ li a:hover {
     border-color: #707070;
 }
 
+.btn-success:hover {
+    background-color: white;
+    border-color: #330066;
+    color: #330066;
+}
+
 .btn-warning {
     background-color: #330066;
     border-color: #330066; 
     color: white;
+}
+
+.btn-warning:hover {
+    background-color: white;
+    border-color: #B76FFF;
+    color: #B76FFF;
 }
