@@ -1,7 +1,7 @@
 """Calorie Counter Flask App."""
 
 import os
-from secret import api_key
+# from secret import api_key
 import requests
 from flask import Flask, session, g, request, render_template, redirect, flash, jsonify
 from sqlalchemy.exc import IntegrityError
@@ -10,7 +10,7 @@ from models import db, connect_db, User, Group, UserGroup
 
 CURR_USER_KEY = "curr_user"
 CALORIE_NINJA_API_BASE_URL = "https://api.calorieninjas.com/v1"
-api_key = os.environ.get
+api_key = os.environ["api_key"]
 
 app = Flask(__name__)
 
