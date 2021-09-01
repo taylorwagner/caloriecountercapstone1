@@ -10,7 +10,7 @@ Link to deployed site via Heroku: *(https://caloriecounterwagner.herokuapp.com/)
 
 ### Features
 
------LIST FEATURES HERE
+Features of this application include: creating and logging into an account, recording food items into a daily journal that displays a calorie count, and connecting with other users by either following, being followed, or joining support groups.
 
 ### API Info
 
