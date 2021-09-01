@@ -10,6 +10,7 @@ from models import db, connect_db, User, Group, UserGroup
 
 CURR_USER_KEY = "curr_user"
 CALORIE_NINJA_API_BASE_URL = "https://api.calorieninjas.com/v1"
+api_key = os.environ.get
 
 app = Flask(__name__)
 
