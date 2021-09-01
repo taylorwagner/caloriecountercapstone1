@@ -39,3 +39,12 @@ class UserViewTestCase(TestCase):
         res = super().tearDown()
         db.session.rollback()
         return res
+
+    def test_show_profile(self):
+        """Test feature that displays a user's profile page."""
+        with self.client as c:
+            res = c.get(f'/profile/{self.testuser_id}')
+
+            self.assertEqual(res.status_code, 200)
+
+            self.assertIn("testuser1", str(res.data))
