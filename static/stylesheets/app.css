@@ -1,4 +1,28 @@
-.btn-danger {
-    background-color: #ffccff;
-    outline: #ffccff;
+body {
+    background-color: #f5f0ff;
+}
+
+h2 {
+    color: #330066;
+}
+
+h3 {
+    color: #404040;
+}
+
+p {
+    color: #707070;
+}
+
+li a {
+    color: #875DFA;
+}
+
+.navbar {
+    background-color: white;
+}
+
+.btn-primary {
+    background-color: #B76FFF;
+    border-color: #B76FFF;
 }
