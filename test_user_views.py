@@ -48,3 +48,11 @@ class UserViewTestCase(TestCase):
             self.assertEqual(res.status_code, 200)
 
             self.assertIn("testuser1", str(res.data))
+
+    # def test_show_account(self):
+    #     """Test feature that displays a page with user's account information."""
+    #     with self.client as c:
+    #         res = c.get(f'/account/{self.testuser_id}')
+
+    #         self.assertIn('Do you want to edit your account?', str(res.data))
+    #         self.assertNotIn('user1@gmail.com', str(res.data))
