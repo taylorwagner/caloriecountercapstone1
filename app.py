@@ -11,8 +11,8 @@ CURR_USER_KEY = "curr_user"
 CALORIE_NINJA_API_BASE_URL = "https://api.calorieninjas.com/v1"
 
 ## uncomment line 14 when in development and uncomment line 15 when in production (only 1 can be uncommented at a time)
-# from secret import api_key
-api_key = os.environ["api_key"]
+from secret import api_key
+# api_key = os.environ["api_key"]
 
 app = Flask(__name__)
 
