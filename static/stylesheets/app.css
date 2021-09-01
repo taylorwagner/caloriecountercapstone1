@@ -18,6 +18,10 @@ li a {
     color: #875DFA;
 }
 
+li a:hover {
+    color: black;
+}
+
 .navbar {
     background-color: white;
 }
@@ -25,4 +29,25 @@ li a {
 .btn-primary {
     background-color: #B76FFF;
     border-color: #B76FFF;
+}
+
+.btn-danger {
+    background-color: black;
+    border-color: black;
+}
+
+.btn-outline-danger {
+    color: black;
+    border-color: black;
+}
+
+.btn-success {
+    background-color: #707070;
+    border-color: #707070;
+}
+
+.btn-warning {
+    background-color: #330066;
+    border-color: #330066; 
+    color: white;
 }
