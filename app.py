@@ -266,17 +266,22 @@ def log_food(user_id):
     return render_template('users/food.html', form=form, user=user)
 
 
-@app.route('/account/<int:user_id>/exercise')
-def log_exercise(user_id):
-    """Display form for logging exercise into journal"""
-    if not g.user:
-        flash("Access unauthorized.", 'danger')
-        return redirect("/")
+# @app.route('account/<int:user_id>/food', method=["POST"])
+# def log_food_cal(user_id):
+#     """Display food and calorie information on profile page."""
+#     if not g.user:
+#         flash("Access unauthorized.", 'danger')
+#         return redirect("/")
 
-    form = ExerciseForm()
-    user = User.query.get_or_404(user_id)
+#     user = User.query.get_or_404(user_id)
+#     form = FoodForm()
 
-    return render_template('users/exercise.html', form=form, user=user)
+#     if form.validate_on_submit():
+
+#         flash(f"Added food item and calorie count", 'success')
+#         return redirect(f'profile/{user.id}')
+
+#     return render_template('users/food.html', form=form, user=user)
 
 
 ## GROUP ROUTES
