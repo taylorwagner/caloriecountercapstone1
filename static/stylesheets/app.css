@@ -26,6 +26,8 @@ li a:hover {
 
 img {
     filter: grayscale(80%);
+    margin: auto;
+    width: 50%;
 }
 
 /* navbar */
