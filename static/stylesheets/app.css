@@ -24,6 +24,10 @@ li a:hover {
     color: black;
 }
 
+img {
+    filter: grayscale(80%);
+}
+
 /* navbar */
 
 .navbar {
