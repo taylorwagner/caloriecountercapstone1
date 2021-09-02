@@ -47,7 +47,7 @@ def get_cal_for_user_food():
         dateInputted = received["date"]
 
         return jsonify(
-            food={"food": foodInputted, "calories": get_food_cal(foodInputted)})
+            food={"food": foodInputted, "calories": get_food_cal(foodInputted)}, date={"date": dateInputted})
 
     else:
         return jsonify(errors=form.errors)

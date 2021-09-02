@@ -26,7 +26,7 @@ function handleFoodResponse(res) {
 
     else {
         let {food, date} = res;
-        let card = `The date is ${date}. The food is ${food.food} and the calorie count is ${food.calories}.`;
+        let card = `The date is ${date.date}. The food is ${food.food} and the calorie count is ${food.calories}.`;
 
         $("#journal-demo").text(card);
     }
