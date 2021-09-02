@@ -4,7 +4,11 @@ Link to deployed site via Heroku: *(https://caloriecounterwagner.herokuapp.com/)
 
 ## Across almost all demographics of people, health and wellness is an overall priority and concern; however, many people struggle with maintaining a healthy diet even when they set goals for themselves. An attainable way to either begin or keep up with a health and wellness journey is to set a daily caloric intake goal. A daily caloric intake goal can be kept track of by adding up the number of calories per food item eaten in a day and comparing it to the goal amount. Unfortunately, the amount of calories for food items aren't common knowledge for most people. In addition, many people struggle with their goals when they feel like they are alone so knowing other people are on a similar journey can be comforting and beneficial to goal success.
 
+### Description
+
 **Calorie Counter** was designed to meet the needs of people looking to keep themselves accountable for their daily caloric intake goals as well as provide a space to gain a network of support from likeminded individuals all in one application. At the homepage of the application, users are able to learn more about the application, sign up for an account, or log in to an already registered account. After registration and/or logging in, users are redirected to their profile page, where they can view their journal and past entries, register new food items to their journals, view and join support groups with similar users, and follow or be followed by different individual users in order to see other people's journals.
+
+### User Flow
 
 ![Application User Flow](static/images/calcountuserflow.png)
 
@@ -26,7 +30,7 @@ User signup, login, and logout functionality was implemented, as well as authent
 
 ### Technologies
 
-Python, Flask, WTForms, PostgreSQL, SQLAlchemy, Javascript, Bootstrap, Flash Messaging.
+Python, Flask, WTForms, PostgreSQL, SQLAlchemy, Javascript, Bootstrap.
 
 ### Installation 
 
