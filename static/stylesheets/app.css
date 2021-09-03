@@ -26,7 +26,10 @@ li a:hover {
 
 img {
     filter: grayscale(80%);
-    margin: auto;
+}
+
+.about-pic {
+    margin-left: 25%;
     width: 50%;
 }
 
