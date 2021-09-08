@@ -1,7 +1,7 @@
 """User view tests."""
 
 from unittest import TestCase
-from models import db, connect_db, User
+from models import db, connect_db, User, Follows
 from app import app, CURR_USER_KEY
 
 app.config['SQLALCHEMY_DATABASE_URL'] = 'postgresql:///calcount_test'
@@ -59,3 +59,54 @@ class UserViewTestCase(TestCase):
 
             self.assertIn('Do you want to edit your account?', str(res.data))
             self.assertNotIn('user1@gmail.com', str(res.data))
+
+    def test_edit_account(self):
+        """Test feature that allows a current user's account information to be edited."""
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser.id
+
+            res = c.post(f"/account/{self.testuser_id}/edit", follow_redirects=True)
+
+            self.assertEqual(res.status_code, 200)
+
+# FOLLOW TESTS
+
+    def setup_followers(self):
+        """Create test client, add sample data for followers"""
+        f1 = Follows(user_following_id=self.testuser_id, user_followed_id=self.user1_id)
+        f2 = Follows(user_following_id=self.testuser_id, user_followed_id=self.user2_id)
+        f3 = Follows(user_following_id=self.user1_id, user_followed_id=self.testuser_id)
+
+        db.session.add_all([f1,f2,f3])
+        db.session.commit()
+
+    def test_show_following(self):
+        """Test show_following to see if followed users are detected"""
+        self.setup_followers()
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser_id
+
+            res = c.get(f"/account/{self.testuser_id}/following")
+
+            self.assertEqual(res.status_code, 200)
+
+            self.assertIn("user1", str(res.data))
+            self.assertIn("user2", str(res.data))
+            self.assertNotIn("user3", str(res.data))
+
+    def test_show_followers(self):
+        """Test users_followers to see if users that are following are detected"""
+        self.setup_followers()
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser_id
+
+            res = c.get(f"/account/{self.testuser_id}/followers")
+
+            self.assertEqual(res.status_code, 200)
+
+            self.assertIn("user1", str(res.data))
+            self.assertNotIn("user2", str(res.data))
+            self.assertNotIn("user3", str(res.data))
