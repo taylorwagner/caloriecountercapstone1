@@ -52,18 +52,15 @@ class GroupViewTestCase(TestCase):
             self.assertIn(testgroup2.name, str(res.data))
             self.assertNotIn("nogroup", str(res.data))
 
-    # def test_new_group(self):
-    #     """Test that a new group can be added with the form."""
-    #     with self.client as c:
-    #         with c.session_transaction() as sess:
-    #             sess[CURR_USER_KEY] = self.testuser.id
+    def test_new_group(self):
+        """Test that a new group can be added with the form."""
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser.id
 
-    #         res = c.post("/groups/new", data={"name": "TESTING GROUP!!!!"}, follow_redirects=True)
+            res = c.post("/groups/new", data={"name": "TESTING GROUP!!!!"}, follow_redirects=True)
 
-    #         self.assertEqual(res.status_code, 302)
-
-    #         group = Group.query.one()
-    #         self.assertEqual(group.name, "TESTING GROUP!!!!")
+            self.assertEqual(res.status_code, 200)
 
     def test_show_group(self):
         """Test to detect that when an authorized user clicks on a valid group page, the group shows along with description (if valid) and included users (if valid)."""
@@ -100,3 +97,26 @@ class GroupViewTestCase(TestCase):
             res = c.get("/groups/9ujh8y689")
 
             self.assertEqual(res.status_code, 404)
+
+    def test_join_group(self):
+        """Test that an authorized user can join a group."""
+        testgroup = Group(id=999999996, name="testgroupgroup")
+
+        db.session.add(testgroup)
+        db.session.commit()
+
+        testjoin = UserGroup(id=11111, group_id=999999996, user_id=self.testuser.id)
+
+        db.session.add(testjoin)
+        db.session.commit()
+
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser.id
+
+            res = c.post("/groups/999999996/join", follow_redirects=True)
+
+            self.assertEqual(res.status_code, 200)
+
+            join = UserGroup.query.get(11111)
+            self.assertIsNotNone(join)
