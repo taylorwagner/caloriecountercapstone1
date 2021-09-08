@@ -120,3 +120,37 @@ class GroupViewTestCase(TestCase):
 
             join = UserGroup.query.get(11111)
             self.assertIsNotNone(join)
+
+    def test_delete_group(self):
+        """Test that group will successfully delete"""
+        g = Group(id=987654321, name="Group Delete Test")
+
+        db.session.add(g)
+        db.session.commit()
+
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser.id
+
+            res = c.post("/groups/987654321/delete", follow_redirects=True)
+
+            self.assertEqual(res.status_code, 200)
+
+            g = Group.query.get(987654321)
+            self.assertIsNone(g)
+
+    def test_group_delete_no_authentication(self):
+        """Test that groups will not delete when no user is logged in."""
+        g = Group(id=20122014, name="Group Should Not Delete!!!")
+
+        db.session.add(g)
+        db.session.commit()
+
+        with self.client as c:
+            res = c.post("/groups/20122014/delete", follow_redirects=True)
+
+            self.assertEqual(res.status_code, 200)
+            self.assertIn("Access unauthorized", str(res.data))
+
+            g = Group.query.get(20122014)
+            self.assertIsNotNone(g)
