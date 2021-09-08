@@ -1,4 +1,4 @@
-"""User view tests."""
+"""User and Follows view tests."""
 
 from unittest import TestCase
 from models import db, connect_db, User, Follows
@@ -110,3 +110,23 @@ class UserViewTestCase(TestCase):
             self.assertIn("user1", str(res.data))
             self.assertNotIn("user2", str(res.data))
             self.assertNotIn("user3", str(res.data))
+
+    def test_unauthorized_following_page_access(self):
+        """Test users_following unauthorized access feature for a user who is not the current logged in user"""
+        self.setup_followers()
+        with self.client as c:
+            
+            res = c.get(f"/account/{self.testuser_id}/following", follow_redirects=True)
+            self.assertEqual(res.status_code, 200)
+            self.assertNotIn("user1", str(res.data))
+            self.assertIn("Access unauthorized", str(res.data))
+
+    def test_unauthorized_followers_page_access(self):
+        """Test users_followers unauthorized access feature for a user who is not the current logged in user"""
+        self.setup_followers()
+        with self.client as c:
+            
+            res = c.get(f"/account/{self.testuser_id}/followers", follow_redirects=True)
+            self.assertEqual(res.status_code, 200)
+            self.assertNotIn("user1", str(res.data))
+            self.assertIn("Access unauthorized", str(res.data))
