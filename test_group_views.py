@@ -74,6 +74,9 @@ class GroupViewTestCase(TestCase):
 
         testusergroup = UserGroup(id=99999, group_id=999999997, user_id=self.testuser.id)
 
+        db.session.add(testusergroup)
+        db.session.commit()
+
         with self.client as c:
             with c.session_transaction() as sess:
                 sess[CURR_USER_KEY] = self.testuser.id
@@ -84,6 +87,9 @@ class GroupViewTestCase(TestCase):
 
             self.assertEqual(res.status_code, 200)
             self.assertIn(group.name, str(res.data)) 
+            self.assertEqual(group.name, "testtesttestgroup")
+            self.assertEqual(group.description, "test group including a description")
+            self.assertIn("grouptestuser1", str(res.data))
 
     def test_invalid_show_group(self):
         """Test that 404 page/message will kick in for an invalid group id"""
