@@ -30,3 +30,22 @@ class GroupViewTestCase(TestCase):
         res = super().tearDown()
         db.session.rollback()
         return res
+
+    def test_all_groups(self):
+        """Test the all groups page is displaying all groups in db."""
+        testgroup = Group(id=999999999, name="testgroup")
+        testgroup2 = Group(id=999999998, name="testgroup2", description="test group description")
+
+        db.session.add_all([testgroup, testgroup2])
+        db.session.commit()
+
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser.id
+
+            testgroup = Group.query.get(999999999)
+
+            res = c.get("/groups")
+            self.assertIn("testgroup", str(res.data))
+            self.assertIn("testgroup2", str(res.data))
+            self.assertNotIn("nogroup", str(res.data))
