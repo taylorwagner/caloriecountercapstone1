@@ -121,6 +121,21 @@ class GroupViewTestCase(TestCase):
             join = UserGroup.query.get(11111)
             self.assertIsNotNone(join)
 
+    def test_edit_group(self):
+        """Test that group will successfully edit"""
+        g = Group(id=12341234, name="Group Edit Test")
+
+        db.session.add(g)
+        db.session.commit()
+
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser.id
+
+            res = c.post("/groups/12341234/edit", follow_redirects=True)
+
+            self.assertEqual(res.status_code, 200)
+
     def test_delete_group(self):
         """Test that group will successfully delete"""
         g = Group(id=987654321, name="Group Delete Test")
