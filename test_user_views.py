@@ -49,10 +49,13 @@ class UserViewTestCase(TestCase):
 
             self.assertIn("testuser1", str(res.data))
 
-    # def test_show_account(self):
-    #     """Test feature that displays a page with user's account information."""
-    #     with self.client as c:
-    #         res = c.get(f'/account/{self.testuser_id}')
+    def test_show_account(self):
+        """Test feature that displays a page with current user's account information."""
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser.id
 
-    #         self.assertIn('Do you want to edit your account?', str(res.data))
-    #         self.assertNotIn('user1@gmail.com', str(res.data))
+            res = c.get(f'/account/{self.testuser_id}')
+
+            self.assertIn('Do you want to edit your account?', str(res.data))
+            self.assertNotIn('user1@gmail.com', str(res.data))
