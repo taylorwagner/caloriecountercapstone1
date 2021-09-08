@@ -55,6 +55,17 @@ img {
     border-color: #330066;
 }
 
+.btn-outline-primary {
+    color: black;
+    border-color: black;
+}
+
+.btn-outline-primary:hover {
+    background-color: white;
+    border-color: white;
+    color: black;
+}
+
 .btn-danger {
     background-color: black;
     border-color: black;
