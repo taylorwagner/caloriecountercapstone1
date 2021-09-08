@@ -70,6 +70,19 @@ class UserViewTestCase(TestCase):
 
             self.assertEqual(res.status_code, 200)
 
+    def test_delete_account(self):
+        """Test feature that allows a current user's account information to be deleted."""
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser.id
+
+            res = c.post("/account/delete", follow_redirects=True)
+
+            self.assertEqual(res.status_code, 200)
+
+            u = User.query.get(self.testuser.id)
+            self.assertIsNone(u)
+
 # FOLLOW TESTS
 
     def setup_followers(self):
