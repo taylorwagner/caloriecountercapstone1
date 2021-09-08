@@ -179,7 +179,7 @@ def edit_account(user_id):
 
 @app.route('/account/<int:user_id>/groups')
 def show_user_groups(user_id):
-    """Show list of people that this user is following."""
+    """Show list of groups that this user is in."""
     if not g.user:
         flash("Access unauthorized.", 'danger')
         return redirect('/')

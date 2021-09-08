@@ -1,7 +1,7 @@
 """User and Follows view tests."""
 
 from unittest import TestCase
-from models import db, connect_db, User, Follows
+from models import db, connect_db, User, Group, UserGroup, Follows
 from app import app, CURR_USER_KEY
 
 app.config['SQLALCHEMY_DATABASE_URL'] = 'postgresql:///calcount_test'
@@ -69,6 +69,30 @@ class UserViewTestCase(TestCase):
             res = c.post(f"/account/{self.testuser_id}/edit", follow_redirects=True)
 
             self.assertEqual(res.status_code, 200)
+
+    def test_show_user_groups(self):
+        """Test show_user_groups to see if user's support groups are being detected."""
+        testgroup = Group(id=123123, name="testgroup")
+        testgroup2 = Group(id=321321, name="testgroup2", description="test group description")
+
+        db.session.add_all([testgroup, testgroup2])
+        db.session.commit()
+
+        testusergroup = UserGroup(id=999991, group_id=123123, user_id=self.testuser.id)
+
+        db.session.add(testusergroup)
+        db.session.commit()
+
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser_id
+
+            res = c.get(f"/account/{self.testuser_id}/groups")
+
+            self.assertEqual(res.status_code, 200)
+
+            self.assertIn("testgroup", str(res.data))
+            self.assertNotIn("testgroup2", str(res.data))
 
     def test_delete_account(self):
         """Test feature that allows a current user's account information to be deleted."""
