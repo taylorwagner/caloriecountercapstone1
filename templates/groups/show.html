@@ -20,17 +20,19 @@
     {% endif %}
 
     {% if group.users %}
-        {% for u in group.users %}
-            {% if u == g.user %}
+        {% for u in group.users if u == g.user %}
             <form method="POST" action="/groups/{{ group.id }}/leave" class="form-inline">
                 <button class="btn btn-outline-danger">Leave Group</button>
             </form>
-            {% else %}
-            <form method="POST" action="/groups/{{ group.id }}/join" class="form-inline">
-                <button class="btn btn-primary">Join Group</button>
-            </form>
-            {% endif %}
+        {% else %}
+        <form method="POST" action="/groups/{{ group.id }}/join" class="form-inline">
+            <button class="btn btn-primary">Join Group</button>
+        </form>
         {% endfor %}
+        {% else %}
+        <form method="POST" action="/groups/{{ group.id }}/join" class="form-inline">
+            <button class="btn btn-primary">Join Group</button>
+        </form>
     {% endif %}
 
     <form method="POST" action="/groups/{{ group.id }}/delete" class="form-inline">
