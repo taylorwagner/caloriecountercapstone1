@@ -12,18 +12,19 @@ CALORIE_NINJA_API_BASE_URL = "https://api.calorieninjas.com/v1"
 
 app = Flask(__name__)
 
-## uncomment lines 16 & 19 when in development and uncomment lines 17-18 when in production (only 1 can be uncommented at a time)
-# from secret import api_key, SECRET_KEY
-api_key = os.environ["api_key"]
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-# app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', SECRET_KEY)
+## uncomment lines 16-17 when in development and uncomment lines 18-19 when in production (only 1 can be uncommented at a time)
+from secret import api_key, SECRET_KEY
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', SECRET_KEY)
+# api_key = os.environ["api_key"]
+# app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+
 
 ## uncomment line 25 when in development and uncomment lines 21-24 when in production (only 1 option can be uncommented at a time)
-uri = os.environ.get("DATABASE_URL")
-if uri.startswith("postgres://"):
-    uri = uri.replace("postgres://", "postgresql://", 1)
-app.config['SQLALCHEMY_DATABASE_URI'] = (uri)
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgresql:///calcount')
+# uri = os.environ.get("DATABASE_URL")
+# if uri.startswith("postgres://"):
+#     uri = uri.replace("postgres://", "postgresql://", 1)
+# app.config['SQLALCHEMY_DATABASE_URI'] = (uri)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgresql:///calcount')
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
