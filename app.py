@@ -429,6 +429,7 @@ def not_found(e):
 def show_profile(user_id):
     """Show profile page for user."""
     user = User.query.get_or_404(user_id)
+    dates = user.foods
 
     return render_template("users/show.html", user=user)
 

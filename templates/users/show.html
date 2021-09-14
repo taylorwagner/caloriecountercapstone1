@@ -39,6 +39,7 @@
       <div class="column">
         <div class="row">
       {% if user.foods %}
+      
       {% for food in user.foods %}
       <div class="card {{ food.date }}" style='width: 18rem;'>
         <div class="card-header">
@@ -55,7 +56,7 @@
       {% else %}
       <p>{{ user.username }} hasn't added any food to their journal yet!</p>
       {% endif %}
-      
+
         </div>
       </div>
 
