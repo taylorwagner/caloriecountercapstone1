@@ -22,7 +22,7 @@ Features of this application include: creating and logging into an account, reco
 
 ### Database Models
 
-This application uses four models: User, Group, User_Group, and Follows. The User model saves the user_id, username, hashed password, email, goal_cal, city, and state to the database. The Group model saves the group_id, name, and description to the database. The User_Group model saves the user_group_id, foreign key of group_id from Group model, and foreign key of user_id from User model to the database. The Follows models saves a follows_id, and two foreign keys both from the User model: user_following_id and user_followed_id to the database.
+This application uses five models: User, Group, User_Group, Follows and Food. The User model saves the user_id, username, hashed password, email, goal_cal, city, and state to the database. The Group model saves the group_id, name, and description to the database. The User_Group model saves the user_group_id, foreign key of group_id from Group model, and foreign key of user_id from User model to the database. The Follows models saves a follows_id, and two foreign keys both from the User model: user_following_id and user_followed_id to the database.
 
 User signup, login, and logout functionality was implemented, as well as authentication and authorization. An account is required to access any of the detailed pages for different groups, users, and API functionality. Username and email must both be unique.
 
