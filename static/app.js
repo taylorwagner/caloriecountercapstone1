@@ -26,7 +26,7 @@ function handleFoodResponse(res) {
 
     else {
         let {food, date} = res;
-        let card = `The date is ${date.date}. The food is ${food.food} and the calorie count is ${food.calories}.`;
+        let card = `The date you entered was ${date.date}, and the food you entered was ${food.food}. The calorie count for ${food.food }is ${food.calories}! This information has been added to your profile.`;
 
         $("#journal-demo").text(card);
     }
@@ -34,38 +34,3 @@ function handleFoodResponse(res) {
 
 
 $("#food_form").on("submit", processFoodForm);
-
-
-// /** handleResponse: deal with response from backend food-cal API */
-
-// function handleFoodResponse(res) {
-//     let card = document.createElement('div');
-//     card.classList.add('card');
-
-//     let header = document.createElement('div');
-//     header.classList.add('card-header');
-//     card.appendChild(header);
-
-//     let foodList = document.createElement('ul');
-//     foodList.classList.add('list-group');
-//     foodList.classList.add('list-group-flush');
-//     card.appendChild(foodList);
-
-//     let foodItem = document.createElement('li');
-//     foodItem.classList.add('list-group-item');
-//     foodList.appendChild(foodItem);
-
-//     if("errors" in res) {
-//         for(let field in res.errors) {
-//             $(`#${field}-err`).text(res.errors[field]);
-//         }
-//     }
-
-//     else {
-//         let {food, date} = res;
-//         header.innerText = `${date}`
-//         foodItem.innerText = `${food.food}...${food.calories}`
-
-//         $("#journal-demo").appendChild(card);
-//     }
-// }
