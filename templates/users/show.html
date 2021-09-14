@@ -27,21 +27,34 @@
         {% endif %}
     </ul>
 
+    <p>{{ user.foods }}</p>
+
     <h2 class="h2">Journal</h2>
     <h3 class="h3">Daily Caloric Goal: {{ user.goal_cal }}</h2>
     {% if g.user.id == user.id %}
     <a href="/account/{{ user.id }}/food" class="btn btn-primary">Record Food</a>
     {% endif %}
     <div class="container journal-cards">
-        <div class="card" style="width: 18rem;">
-            <div class="card-header">
-              Date Here
-            </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">Food/Calories</li>
-              <li class="list-group-item">Food/Calories</li>
-            </ul>
-          </div>
+
+      <div class="column">
+        <div class="row">
+      {% if user.foods %}
+      {% for food in user.foods %}
+      <div class="card {{ food.date }}" style='width: 18rem;'>
+        <div class="card-header">
+          {{ food.date }}
+        </div>
+        <ul class="list-group list-group-flush">
+          {% for item in user.foods if item.date == food.date %}
+          <li class="list-group-item">{{ item.food }} - {{ item.calories }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+      {% endif %}
+        </div>
+      </div>
+
     </div>
 </div>
 <br>
