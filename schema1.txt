@@ -26,6 +26,14 @@ Table users_groups {
   user_id int [fk]
 }
 
+Table foods {
+  id int [pk]
+  user_id int [fk]
+  date string [not null]
+  food string [not null]
+  calories num [not null]
+}
+
 
 ## RELATIONSHIPS
 
@@ -36,3 +44,5 @@ Ref: "groups"."id" < "users_groups"."group_id"
 Ref: "users"."id" < "follows"."user_followed_id"
 
 Ref: "users"."id" < "follows"."user_following_id"
+
+Ref: "users"."id" < "foods"."user_id"
