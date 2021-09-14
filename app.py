@@ -42,17 +42,25 @@ def get_food_cal(foodInputted):
     return calories
 
 
-@app.route('/api/get-food-cal', methods=["POST"])
+@app.route('/api/get-food-cal/', methods=["POST"])
 def get_cal_for_user_food():
     """Get calories, validate input, and return information about food."""
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect('/')
 
     received = request.json
 
     form = FoodForm(csrf_enabled=False, data=received)
+    user = g.user
 
     if form.validate_on_submit():
         foodInputted = received["food"]
         dateInputted = received["date"]
+
+        user_food = Food(user_id=user.id, food=foodInputted, date=dateInputted, calories=get_food_cal(foodInputted))
+        db.session.add(user_food)
+        db.session.commit()
 
         return jsonify(
             food={"food": foodInputted, "calories": get_food_cal(foodInputted)}, date={"date": dateInputted})
@@ -270,29 +278,6 @@ def log_food(user_id):
 
     form = FoodForm()
     user = User.query.get_or_404(user_id)
-
-    return render_template('users/food.html', form=form, user=user)
-
-
-@app.route('account/<int:user_id>/food/<int:calories>', method=["POST"])
-def log_food_cal(user_id, calories):
-    """Display food and calorie information on profile page."""
-    if not g.user:
-        flash("Access unauthorized.", 'danger')
-        return redirect("/")
-
-    user = User.query.get_or_404(user_id)
-    form = FoodForm()
-
-    if form.validate_on_submit():
-        content = form.content.data
-        user_food = Food(user_id=user.id, food=content.food, date=content.date, calories=calories)
-
-        db.session.add(user_food)
-        db.session.commit()
-
-        flash(f"Added food item and calorie count", 'success')
-        return redirect(f'profile/{user.id}')
 
     return render_template('users/food.html', form=form, user=user)
 
