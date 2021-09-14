@@ -274,8 +274,8 @@ def log_food(user_id):
     return render_template('users/food.html', form=form, user=user)
 
 
-@app.route('account/<int:user_id>/food', method=["POST"])
-def log_food_cal(user_id):
+@app.route('account/<int:user_id>/food/<int:calories>', method=["POST"])
+def log_food_cal(user_id, calories):
     """Display food and calorie information on profile page."""
     if not g.user:
         flash("Access unauthorized.", 'danger')
@@ -286,7 +286,10 @@ def log_food_cal(user_id):
 
     if form.validate_on_submit():
         content = form.content.data
-        user_food = Food(food=content.food, date=content.date)
+        user_food = Food(user_id=user.id, food=content.food, date=content.date, calories=calories)
+
+        db.session.add(user_food)
+        db.session.commit()
 
         flash(f"Added food item and calorie count", 'success')
         return redirect(f'profile/{user.id}')
