@@ -42,7 +42,7 @@ def get_food_cal(foodInputted):
     return calories
 
 
-@app.route('/api/get-food-cal/', methods=["POST"])
+@app.route('/api/get-food-cal', methods=["POST"])
 def get_cal_for_user_food():
     """Get calories, validate input, and return information about food."""
     if not g.user:
