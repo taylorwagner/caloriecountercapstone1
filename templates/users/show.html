@@ -39,14 +39,14 @@
       <div class="column">
         <div class="row">
       {% if user.foods %}
-      
-      {% for food in user.foods %}
-      <div class="card {{ food.date }}" style='width: 18rem;'>
+
+      {% for date in dates %}
+      <div class="card {{ date }}" style='width: 18rem;'>
         <div class="card-header">
-          {{ food.date }}
+          {{ date }}
         </div>
         <ul class="list-group list-group-flush">
-          {% for item in user.foods if item.date == food.date %}
+          {% for item in user.foods if item.date == date %}
           <li class="list-group-item">{{ item.food }} - {{ item.calories }}</li>
           {% endfor %}
         </ul>
