@@ -40,6 +40,8 @@ class User(db.Model):
 
     groups = db.relationship("Group", secondary="users_groups", backref="users")
 
+    foods = db.relationship("Food")
+
     def __repr__(self):
         """Human readable representation of user table data."""
         return f"<User #{self.id}: {self.username}, {self.email}, goal_calories={self.goal_cal} city={self.city} state={self.state}>"
@@ -103,7 +105,23 @@ class UserGroup(db.Model):
 
     def __repr__(self):
         """Human readable representation of user_group table data."""
-        return f"<UserGroup: group_id={self.group_id} user_id={self.user_id}>"
+        return f"<UserGroup: id={self.id} group_id={self.group_id} user_id={self.user_id}>"
+
+
+class Food(db.Model):
+    """Connection of a user <-> food input."""
+
+    __tablename__ = "foods"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="cascade"))
+    date = db.Column(db.String, nullable=False)
+    food = db.Column(db.String, nullable=False)
+    calories = db.Column(db.Numeric, nullable=False)
+
+    def __repr__(self):
+        """Human readable representation of food table data."""
+        return f"<Food: id={self.id} user_id={self.user_id} date={self.date} food={self.food} calories={self.calories}>"
 
 
 def connect_db(app):
