@@ -70,8 +70,8 @@ db.session.add_all([fake_f1, fake_f2, fake_f3, fake_f4])
 db.session.commit()
 
 # Add sample food
-u1_fake_food = Food(id=99999, user_id=553131, food="mashed potatoes", date="2000-09-17", calories=8000)
-u2_fake_food = Food(id=99999, user_id=771010, food="tacos", date="2000-09-11", calories=2000)
+u1_fake_food = Food(id=909099, user_id=553131, food="mashed potatoes", date="2000-09-17", calories=8000)
+u2_fake_food = Food(id=909098, user_id=771010, food="tacos", date="2000-09-11", calories=2000)
 
 # Add new objects to session, so they'll persist
 db.session.add_all([u1_fake_food, u2_fake_food])
