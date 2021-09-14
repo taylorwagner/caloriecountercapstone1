@@ -51,7 +51,11 @@
         </ul>
       </div>
       {% endfor %}
+
+      {% else %}
+      <p>{{ user.username }} hasn't added any food to their journal yet!</p>
       {% endif %}
+      
         </div>
       </div>
 
