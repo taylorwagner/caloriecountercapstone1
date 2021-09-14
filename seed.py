@@ -1,5 +1,5 @@
 """Seed file to make sample data for calcountdb."""
-from models import db, User, Group, UserGroup, Follows
+from models import db, User, Group, UserGroup, Follows, Food
 from app import app
 
 # Create all tables
@@ -11,6 +11,7 @@ User.query.delete()
 Group.query.delete()
 UserGroup.query.delete()
 Follows.query.delete()
+Food.query.delete()
 
 # Add sample users
 fake_u1 = User.signup(username="sanrpor", password="password", email="sanrpor@test.com", goal_cal=1800, city="Houston", state="TX")
@@ -64,6 +65,16 @@ fake_f4 = Follows(id=99996, user_following_id=440202, user_followed_id=660101)
 
 # Add new objects to session, so they'll persist
 db.session.add_all([fake_f1, fake_f2, fake_f3, fake_f4])
+
+# Commit
+db.session.commit()
+
+# Add sample food
+u1_fake_food = Food(id=99999, user_id=553131, food="mashed potatoes", date="2000-09-17", calories=8000)
+u2_fake_food = Food(id=99999, user_id=771010, food="tacos", date="2000-09-11", calories=2000)
+
+# Add new objects to session, so they'll persist
+db.session.add_all([u1_fake_food, u2_fake_food])
 
 # Commit
 db.session.commit()

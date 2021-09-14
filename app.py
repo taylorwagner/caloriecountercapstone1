@@ -5,7 +5,7 @@ import requests
 from flask import Flask, session, g, request, render_template, redirect, flash, jsonify
 from sqlalchemy.exc import IntegrityError
 from forms import UserForm, LoginForm, GroupForm, FoodForm
-from models import db, connect_db, User, Group, UserGroup
+from models import db, connect_db, User, Group, UserGroup, Food
 
 CURR_USER_KEY = "curr_user"
 CALORIE_NINJA_API_BASE_URL = "https://api.calorieninjas.com/v1"
@@ -274,22 +274,24 @@ def log_food(user_id):
     return render_template('users/food.html', form=form, user=user)
 
 
-# @app.route('account/<int:user_id>/food', method=["POST"])
-# def log_food_cal(user_id):
-#     """Display food and calorie information on profile page."""
-#     if not g.user:
-#         flash("Access unauthorized.", 'danger')
-#         return redirect("/")
+@app.route('account/<int:user_id>/food', method=["POST"])
+def log_food_cal(user_id):
+    """Display food and calorie information on profile page."""
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect("/")
 
-#     user = User.query.get_or_404(user_id)
-#     form = FoodForm()
+    user = User.query.get_or_404(user_id)
+    form = FoodForm()
 
-#     if form.validate_on_submit():
+    if form.validate_on_submit():
+        content = form.content.data
+        user_food = Food(food=content.food, date=content.date)
 
-#         flash(f"Added food item and calorie count", 'success')
-#         return redirect(f'profile/{user.id}')
+        flash(f"Added food item and calorie count", 'success')
+        return redirect(f'profile/{user.id}')
 
-#     return render_template('users/food.html', form=form, user=user)
+    return render_template('users/food.html', form=form, user=user)
 
 
 ## GROUP ROUTES
