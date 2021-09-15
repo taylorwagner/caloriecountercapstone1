@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="container">
-    <h1 class="h1">Log food item into Daily Journal for {{ user.username }}</h1>
+    <h1 class="h1">Log Food Item into {{ user.username }}'s Daily Journal</h1>
     <p>Use this form to log a food item into the daily journal. If you wish to calculate a specific quantity, you may prefix a quantity before an item. Example: "3 cups of scrambled eggs" is going to give a more accurate result than just "eggs". If no quantity is specified, the default quantity is 100 grams.</p>
     <form method="POST" id="food_form">
         
