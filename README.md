@@ -6,7 +6,7 @@ Link to deployed site via Heroku: *(https://caloriecounterwagner.herokuapp.com/)
 
 ### Description
 
-**Calorie Counter** was designed to meet the needs of people looking to keep themselves accountable for their daily caloric intake goals as well as provide a space to gain a network of support from likeminded individuals all in one application. At the homepage of the application, users are able to learn more about the application, sign up for an account, or log in to an already registered account. After registration and/or logging in, users are redirected to their profile page, where they can view their journal and past entries, register new food items to their journals, view and join support groups with similar users, and follow or be followed by different individual users in order to see other people's journals.
+**Calorie Counter** was designed to meet the needs of people looking to keep themselves accountable for their daily caloric intake goals as well as provide a space to gain a network of support from likeminded individuals all in one application. At the homepage of the application, users are able to learn more about the application, sign up for an account, or log in to an already registered account. After registration and/or logging in, users are redirected to their profile page, where they can view their journal and past entries, register new food items to their journals, view and join support groups with similar users, and follow or be followed by different individual users in order to see other users' journals.
 
 ### User Flow
 
@@ -14,11 +14,11 @@ Link to deployed site via Heroku: *(https://caloriecounterwagner.herokuapp.com/)
 
 ### Features
 
-Features of this application include: creating and logging into an account, recording food items into a daily journal that displays a calorie count, and connecting with other users by either following, being followed, or joining support groups.
+Features of this application include: creating and logging into an account, recording food items into a daily journal that displays a calorie count for each item, and connecting with other users by either following, being followed, or joining support groups.
 
 ### API Info
 
-*The CalorieNinjas API (https://api.calorieninjas.com/)* is used to search up the different food items that are inputted by the user to receive the caloric count for that input. Users will be able to view their inputs along with the calorie count provided from the API on their profile page. Inputs are organized by date and can be edited or deleted if necessary.
+*The CalorieNinjas API (https://api.calorieninjas.com/)* is used to search up the different food items that are inputted by the user to receive the caloric count for that input. Users will be able to view their inputs along with the calorie count provided from the API on their profile page. Inputs are organized by date.
 
 ### Database Models
 
