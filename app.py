@@ -356,12 +356,10 @@ def leave_group(group_id):
         return redirect('/')
 
     group = Group.query.get_or_404(group_id)
-    groupid = group_id
     user = g.user
-    target_user_group = UserGroup(group_id=groupid, user_id=user.id)
-    targetid = target_user_group.id
+    target_user_group = UserGroup.query.filter(UserGroup.group_id==group.id, UserGroup.user_id==user.id).one()
 
-    db.session.delete(targetid)
+    db.session.delete(target_user_group)
     db.session.commit()
 
     return redirect(f'/groups/{group.id}')
