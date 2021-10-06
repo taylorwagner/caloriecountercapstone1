@@ -121,6 +121,29 @@ class GroupViewTestCase(TestCase):
             join = UserGroup.query.get(11111)
             self.assertIsNotNone(join)
 
+    def test_leave_group(self):
+        """Test that the logged in user can leave a group that they are apart of via UserGroup."""
+        testgroup = Group(id=777777777, name="#superfakegroup")
+
+        db.session.add(testgroup)
+        db.session.commit()
+
+        testusergroup = UserGroup(id=77777777, group_id=777777777, user_id=self.testuser.id)
+
+        db.session.add(testusergroup)
+        db.session.commit()
+
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser.id
+
+            res = c.post("/groups/777777777/leave", follow_redirects=True)
+
+            self.assertEqual(res.status_code, 200)
+
+            leave = UserGroup.query.get(77777777)
+            self.assertIsNone(leave)
+
     def test_edit_group(self):
         """Test that group will successfully edit"""
         g = Group(id=12341234, name="Group Edit Test")
