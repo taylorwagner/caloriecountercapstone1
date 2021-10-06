@@ -82,3 +82,4 @@ class GroupModelTestCase(TestCase):
 
         self.assertIsNotNone(fakefood)
         self.assertEqual(fakefood.user_id, 2012)
+        self.assertEqual(fakefood.food, "chicken and rice casserole")
