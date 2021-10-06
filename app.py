@@ -33,6 +33,8 @@ connect_db(app)
 
 
 ## CALORIE NINJA API
+
+
 def get_food_cal(foodInputted):
     """Given a food, get a calorie number."""
 
@@ -266,12 +268,12 @@ def stop_following(follow_id):
     return redirect(f"/account/{g.user.id}/following")
 
 
-## JOURNAL ROUTES
+## FOOD ROUTES
 
 
 @app.route('/account/<int:user_id>/food')
 def log_food(user_id):
-    """Display form for logging food into journal"""
+    """Display form for logging food into journal."""
     if not g.user:
         flash("Access unauthorized.", 'danger')
         return redirect("/")
@@ -280,6 +282,21 @@ def log_food(user_id):
     user = User.query.get_or_404(user_id)
 
     return render_template('users/food.html', form=form, user=user)
+
+
+# @app.route('/profile/<int:user_id>/food-delete')
+# def delete_food(user_id):
+#     """Delete food input that was inputted by the logged in user."""
+#     if not g.user:
+#         flash("Access unauthorized.", 'danger')
+#         return redirect('/')
+
+#     user = User.query.get_or_404(user_id)
+
+#     db.session.delete(g.user)
+#     db.session.commit()
+
+#     return redirect(f'/profile/{user.id}')
 
 
 ## GROUP ROUTES
