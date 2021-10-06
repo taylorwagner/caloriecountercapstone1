@@ -46,8 +46,7 @@
         <ul class="list-group list-group-flush">
           {% for item in user.foods if item.date == date %}
           <li class="list-group-item">
-            {% if g.user.id == user.id %}
-            <form method="POST" action="/{{ user.foods.id }}/delete"><button class="btn btn-danger btn-sm" id="{{ user.foods.id }}">X</button>{% endif %} {{ item.food }} --- {{ item.calories }}</form>
+            <form method="POST" action="/{{ user.foods.id }}/delete">{% if g.user.id == user.id %}<button class="btn btn-danger btn-sm" id="{{ user.foods.id }}">X</button>{% endif %} {{ item.food }} --- {{ item.calories }}</form>
           </li>
           {% endfor %}
         </ul>
