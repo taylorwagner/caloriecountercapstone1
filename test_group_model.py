@@ -1,8 +1,8 @@
-"""Group and UserGroup model tests."""
+"""Group, UserGroup, and Food model tests."""
 
 from unittest import TestCase
 from sqlalchemy import exc
-from models import db, User, Group, UserGroup
+from models import db, User, Group, UserGroup, Food
 from app import app
 
 app.config['SQLALCHEMY_DATABASE_URL'] = 'postgresql:///calcount_test'
@@ -72,3 +72,13 @@ class GroupModelTestCase(TestCase):
         self.assertEqual(testusergroup.group_id, 9090)
         self.assertEqual(testusergroup.user_id, 2012)
         self.assertEqual(len(usergroupcount), 1)
+
+    def test_food_model(self):
+        """Test to verify that users are being connected to a food input via Food."""
+        fakefood = Food(user_id=self.testuserid, date="09-17-2021", food="chicken and rice casserole", calories="1234")
+
+        db.session.add(fakefood)
+        db.session.commit()
+
+        self.assertIsNotNone(fakefood)
+        self.assertEqual(fakefood.user_id, 2012)
