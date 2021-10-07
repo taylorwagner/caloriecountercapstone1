@@ -97,14 +97,16 @@ def do_logout():
 
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
-    """Handle user signup. Create new user and add to DB. Redirect to homepage. If the form is not valid, present form. If the username or email is not unique, flash message and reload the form."""
+    """Handle user signup. Create new user and add to DB. Redirect to homepage. 
+    If the form is not valid, present form. If the username or email is not unique, flash message and reload the form."""
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
     form = UserForm()
 
     if form.validate_on_submit():
         try:
-            user = User.signup(username=form.username.data, password=form.password.data, email=form.email.data, goal_cal=form.goal_cal.data, city=form.city.data, state=form.state.data)
+            user = User.signup(username=form.username.data, password=form.password.data, email=form.email.data, 
+            goal_cal=form.goal_cal.data, city=form.city.data, state=form.state.data)
             db.session.commit()
 
         except IntegrityError as e:
@@ -454,12 +456,6 @@ def show_profile(user_id):
 
     return render_template("users/show.html", user=user, dates=set(dates))
 
-
-# Turn off all caching in Flask
-#   (useful for dev; in production, this kind of stuff is typically
-#   handled elsewhere)
-#
-# https://stackoverflow.com/questions/34066804/disabling-caching-in-flask
 
 @app.after_request
 def add_header(req):
