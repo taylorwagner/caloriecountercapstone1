@@ -5,17 +5,15 @@
 <div class="container">
     <h1 class="h1">Profile for {{ user.username }}</h1>
     {% if g.user.id != user.id %}
-      {% for followed_user in g.user.following %}
-            {% if g.user.is_following(followed_user) %}
-            <form method="POST" action="/account/stop-following/{{ followed_user.id }}">
+            {% if g.user.is_following(user) %}
+            <form method="POST" action="/account/stop-following/{{ user.id }}">
               <button class="btn btn-primary btn-sm">Unfollow</button>
             </form>
             {% else %}
-            <form method="POST" action="/account/follow/{{ followed_user.id }}">
+            <form method="POST" action="/account/follow/{{ user.id }}">
               <button class="btn btn-outline-primary btn-sm">Follow</button>
             </form>
           {% endif %}
-      {% endfor %}
     {% endif %}
 
     <ul>
@@ -46,7 +44,9 @@
         <ul class="list-group list-group-flush">
           {% for item in user.foods if item.date == date %}
           <li class="list-group-item">
-            <form method="POST" action="/{{ user.foods.id }}/delete">{% if g.user.id == user.id %}<button class="btn btn-danger btn-sm" id="{{ user.foods.id }}">X</button>{% endif %} {{ item.food }} --- {{ item.calories }}</form>
+            <form method="POST" action="/{{ item.id }}/delete">
+              {% if g.user.id == user.id %}<button class="btn btn-danger btn-sm" id="{{ item.id }}">X</button>
+              {% endif %} {{ item.food }} --- {{ item.calories }}</form>
           </li>
           {% endfor %}
         </ul>
