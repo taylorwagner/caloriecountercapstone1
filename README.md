@@ -44,6 +44,6 @@ To run tests, use Python: run all tests in VSCode, or use the terminal command "
 
 Adjust feature due to security concern: only allow the creator of a group to delete a group instead of any user
 
-Improve organization of code to easier parse and/or debug: move all test files into a directory and break up routes into separate directories/files to shorten app.py file
+Improve organization of code to easier parse and/or debug: move all test files into a directory and break up routes into separate files and make route directory to shorten app.py file
 
 Add features to improve user experience: allow users to log exercises to retrieve a net calorie count for each day and include a messaging or commenting ability for users to communicate directly
