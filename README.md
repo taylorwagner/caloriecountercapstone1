@@ -39,3 +39,9 @@ To run this code locally, clone this repository to your computer, set up a virtu
 ### Testing
 
 To run tests, use Python: run all tests in VSCode, or use the terminal command "python -m unittest" to run all tests. To run test files individually, use the terminal command "python -m unittest <filename>". Test files can be found at the following links: *(https://github.com/taylorwagner/caloriecountercapstone1/blob/main/test_group_model.py)*, *(https://github.com/taylorwagner/caloriecountercapstone1/blob/main/test_group_views.py)*, *(https://github.com/taylorwagner/caloriecountercapstone1/blob/main/test_user_model.py)*, *(https://github.com/taylorwagner/caloriecountercapstone1/blob/main/test_user_views.py)*
+
+### Calorie Counter Version 2.0
+
+Adjust feature: only allow the creator of a group to delete a group instead of any user, security concern
+Improve organization of code files: move all test files into a directory and break up routes into separate directories/files to shorten app.py file and to easier parse and/or debug
+Add features: allow users to log exercises to retrieve a net calorie count for each day and include a messaging or commenting ability for users to communicate directly
