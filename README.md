@@ -42,8 +42,8 @@ To run tests, use Python: run all tests in VSCode, or use the terminal command "
 
 ### Calorie Counter Version 2.0
 
-Adjust feature: only allow the creator of a group to delete a group instead of any user, security concern
+Adjust feature due to security concern: only allow the creator of a group to delete a group instead of any user
 
-Improve organization of code files: move all test files into a directory and break up routes into separate directories/files to shorten app.py file and to easier parse and/or debug
+Improve organization of code to easier parse and/or debug: move all test files into a directory and break up routes into separate directories/files to shorten app.py file
 
-Add features: allow users to log exercises to retrieve a net calorie count for each day and include a messaging or commenting ability for users to communicate directly
+Add features to improve user experience: allow users to log exercises to retrieve a net calorie count for each day and include a messaging or commenting ability for users to communicate directly
